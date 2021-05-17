@@ -19,6 +19,29 @@ class PatientTable(db: SQLiteDatabase) {
                 " REFERENCES " + StaffTable.TABLE_NAME + ")")
     }
 
+    fun insert(values: ContentValues): Long {
+        return db.insert(TABLE_NAME, null, values)
+    }
+
+    fun update(values: ContentValues, id: String, whereClause: String, whereArgs: Array<String>): Int {
+        return db.update(TABLE_NAME, values, whereClause, whereArgs)
+    }
+
+    fun delete(whereClause: String, whereArgs: Array<String>): Int {
+        return db.delete(TABLE_NAME, whereClause, whereArgs)
+    }
+
+    fun query(
+        columns: Array<String>,
+        selection: String,
+        selectionArgs: Array<String>,
+        groupBy: String,
+        having: String,
+        orderBy: String
+    ): Cursor? {
+        return db.query(TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy)
+    }
+
     companion object{
         const val TABLE_NAME = "patient"
         const val FIELD_IDENTIFICATION = "identification"
