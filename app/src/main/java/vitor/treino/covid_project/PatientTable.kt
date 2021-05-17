@@ -11,10 +11,11 @@ class PatientTable(db: SQLiteDatabase) {
     fun create() {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
                 BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                FIELD_IDENTIFICATION + " TEXT NOT NULL UNIQUE," +
+                FIELD_IDENTIFICATION + " INTEGER NOT NULL UNIQUE," +
                 FIELD_NAME + " TEXT NOT NULL," +
                 FIELD_DISEASE + " TEXT NOT NULL," +
                 FIELD_PRIORITY + " TEXT NOT NULL," +
+                FIELD_ID_STAFF + " INTEGER NOT NULL," +
                 " FOREIGN KEY (" + FIELD_ID_STAFF + ")" +
                 " REFERENCES " + StaffTable.TABLE_NAME + ")")
     }
