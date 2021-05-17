@@ -5,16 +5,16 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
-class Hospital_Table(db: SQLiteDatabase) {
+class HospitalTable(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun create() {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
                 BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                HOSPITAL_NAME + " TEXT NOT NULL," +
-                LOCATION + " TEXT NOT NULL, " +
-                ADDRESS + "TEXT NOT NULL, " +
-                STATE + "TEXT NOT NULL" + ")")
+                FIELD_NAME + " TEXT NOT NULL," +
+                FIELD_LOCATION + " TEXT NOT NULL, " +
+                FIELD_ADDRESS + "TEXT NOT NULL, " +
+                FIELD_STATE + "TEXT NOT NULL" + ")")
     }
 
     fun insert(values: ContentValues): Long {
@@ -42,9 +42,9 @@ class Hospital_Table(db: SQLiteDatabase) {
 
     companion object{
         const val TABLE_NAME = "hospital"
-        const val HOSPITAL_NAME = "name"
-        const val LOCATION = "location"
-        const val ADDRESS = "address"
-        const val STATE = "state"
+        const val FIELD_NAME = "name"
+        const val FIELD_LOCATION = "location"
+        const val FIELD_ADDRESS = "address"
+        const val FIELD_STATE = "state"
     }
 }
