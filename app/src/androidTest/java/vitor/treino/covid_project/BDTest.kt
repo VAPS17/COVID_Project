@@ -91,4 +91,21 @@ class BDTest {
         db.close()
     }
 
+    @Test
+    fun testHospitalDelete() {
+        val db = getBdHelper().writableDatabase
+        val hospitalTable = HospitalTable(db)
+
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val deletedData = hospitalTable.delete(
+            "${BaseColumns._ID}=?",
+            arrayOf(hospital.id.toString())
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+    }
 }
