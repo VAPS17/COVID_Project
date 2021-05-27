@@ -20,7 +20,7 @@ class BDTest {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdHelper() = BDHelper(getAppContext())
 
-    private fun hospitalInsert(table: HospitalTable, hospital: HospitalData): Long {
+    private fun insertHospital(table: HospitalTable, hospital: HospitalData): Long {
         val id = table.insert(hospital.toContentValues())
         assertNotEquals(-1, id)
 
@@ -41,17 +41,29 @@ class BDTest {
         return HospitalData.fromCursor(cursor)
     }
 
+    @Before
+    fun eraseBD() {
+        getAppContext().deleteDatabase(BDHelper.DB_Name)
+    }
+
     @Test
-    fun openBD() {
-        val dbHelper = BDHelper(getAppContext())
-        val db = dbHelper.readableDatabase
+    fun testOpenBD() {
+        val db = getBdHelper().readableDatabase
 
         assert(db.isOpen)
         db.close()
     }
 
-    @Before
-    fun eraseBD() {
-        getAppContext().deleteDatabase(BDHelper.DB_Name)
+    @Test
+    fun testHospitalInsert() {
+        val db = getBdHelper().writableDatabase
+        val hospitalTable = HospitalTable(db)
+
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
+
+        db.close()
     }
 }
