@@ -41,5 +41,7 @@ class HospitalTable(db: SQLiteDatabase) {
         const val FIELD_LOCATION = "location"
         const val FIELD_ADDRESS = "address"
         const val FIELD_STATE = "state"
+
+        val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME, FIELD_LOCATION, FIELD_ADDRESS, FIELD_STATE)
     }
 }
