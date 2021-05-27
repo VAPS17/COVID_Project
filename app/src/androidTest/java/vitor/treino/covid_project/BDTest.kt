@@ -108,4 +108,17 @@ class BDTest {
 
         db.close()
     }
+
+    @Test
+    fun testHospitalRead() {
+        val db = getBdHelper().writableDatabase
+        val hospitalTable = HospitalTable(db)
+
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
+
+        db.close()
+    }
 }
