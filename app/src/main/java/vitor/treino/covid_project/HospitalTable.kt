@@ -16,7 +16,7 @@ class HospitalTable(db: SQLiteDatabase) {
         return db.insert(TABLE_NAME, null, values)
     }
 
-    fun update(values: ContentValues, id: String, whereClause: String, whereArgs: Array<String>): Int {
+    fun update(values: ContentValues, whereClause: String, whereArgs: Array<String>): Int {
         return db.update(TABLE_NAME, values, whereClause, whereArgs)
     }
 

@@ -66,4 +66,29 @@ class BDTest {
 
         db.close()
     }
+
+    @Test
+    fun testHospitalUpdate() {
+        val db = getBdHelper().writableDatabase
+        val hospitalTable = HospitalTable(db)
+
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        hospital.address = "Avenida YYY"
+        hospital.state = "Empty"
+
+        val updatedData = hospitalTable.update(
+            hospital.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(hospital.id.toString())
+        )
+
+        assertEquals(1, updatedData)
+
+        assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
+
+        db.close()
+    }
+
 }
