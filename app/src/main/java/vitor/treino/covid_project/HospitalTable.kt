@@ -9,12 +9,7 @@ class HospitalTable(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun create() {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
-                BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                FIELD_NAME + " TEXT NOT NULL," +
-                FIELD_LOCATION + " TEXT NOT NULL, " +
-                FIELD_ADDRESS + "TEXT NOT NULL, " +
-                FIELD_STATE + "TEXT NOT NULL" + ")")
+        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_NAME TEXT NOT NULL, $FIELD_LOCATION TEXT NOT NULL, $FIELD_ADDRESS TEXT NOT NULL, $FIELD_STATE TEXT NOT NULL)")
     }
 
     fun insert(values: ContentValues): Long {

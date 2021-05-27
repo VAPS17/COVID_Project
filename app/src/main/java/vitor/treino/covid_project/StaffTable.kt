@@ -9,15 +9,7 @@ class StaffTable(db: SQLiteDatabase) {
     private val db : SQLiteDatabase = db
 
     fun create() {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
-                BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                FIELD_IDENTIFICATION + " INTEGER NOT NULL UNIQUE," +
-                FIELD_PROFESSION + " TEXT NOT NULL," +
-                FIELD_NAME + " TEXT NOT NULL," +
-                FIELD_N_PATIENTS + " TEXT NOT NULL," +
-                FIELD_ID_HOSPITAL + " INTEGER NOT NULL," +
-                " FOREIGN KEY (" + FIELD_ID_HOSPITAL + ")" +
-                " REFERENCES " + HospitalTable.TABLE_NAME + ")")
+        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_IDENTIFICATION INTEGER NOT NULL UNIQUE, $FIELD_PROFESSION TEXT NOT NULL, $FIELD_NAME TEXT NOT NULL, $FIELD_N_PATIENTS TEXT NOT NULL, $FIELD_ID_HOSPITAL INTEGER NOT NULL, FOREIGN KEY ($FIELD_ID_HOSPITAL) REFERENCES ${HospitalTable.TABLE_NAME})")
     }
 
     fun insert(values: ContentValues): Long {
