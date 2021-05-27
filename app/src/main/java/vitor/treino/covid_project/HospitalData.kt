@@ -16,4 +16,22 @@ data class HospitalData(var id: Long = -1, var name: String, var location: Strin
 
         return values
     }
+
+    companion object{
+        fun fromCursor(cursor: Cursor): HospitalData {
+            val colId = cursor.getColumnIndex(BaseColumns._ID)
+            val colName = cursor.getColumnIndex(HospitalTable.FIELD_NAME)
+            val colLocation = cursor.getColumnIndex(HospitalTable.FIELD_LOCATION)
+            val colAddress = cursor.getColumnIndex(HospitalTable.FIELD_ADDRESS)
+            val colState = cursor.getColumnIndex(HospitalTable.FIELD_STATE)
+
+            val id = cursor.getLong(colId)
+            val name = cursor.getString(colName)
+            val location = cursor.getString(colLocation)
+            val address = cursor.getString(colAddress)
+            val state = cursor.getString(colState)
+
+            return HospitalData(id, name, location, address, state)
+        }
+    }
 }
