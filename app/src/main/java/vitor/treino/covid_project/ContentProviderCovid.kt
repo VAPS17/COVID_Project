@@ -136,7 +136,26 @@ class ContentProviderCovid : ContentProvider() {
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        TODO("Implement this to handle requests to delete one or more rows")
+        val db = dbHelper!!.writableDatabase
+
+        return when (getUriMatcher().match(uri)) {
+            URI_HOSPITAL_SPECIFIC -> HospitalTable(db).delete(
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_STAFF_SPECIFIC -> StaffTable(db).delete(
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_PATIENT_SPECIFIC -> PatientTable(db).delete(
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            else -> 0
+        }
     }
 
     private fun getUriMatcher(): UriMatcher {
