@@ -23,9 +23,55 @@ class ContentProviderCovid : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        val bd = bdHelper!!.readableDatabase
+        val db = bdHelper!!.readableDatabase
 
         return when (getUriMatcher().match(uri)) {
+            URI_HOSPITAL -> HospitalTable(db).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>,
+                null, null,
+                sortOrder
+            )
+
+            URI_HOSPITAL_SPECIFIC -> HospitalTable(db).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null, null, null
+            )
+
+            URI_STAFF -> StaffTable(db).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>,
+                null, null,
+                sortOrder
+            )
+
+            URI_STAFF_SPECIFIC -> StaffTable(db).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null, null, null
+            )
+
+            URI_PATIENT -> PatientTable(db).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>,
+                null, null,
+                sortOrder
+            )
+
+            URI_PATIENT_SPECIFIC -> PatientTable(db).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null, null, null
+            )
+
+            else -> null
 
         }
     }
