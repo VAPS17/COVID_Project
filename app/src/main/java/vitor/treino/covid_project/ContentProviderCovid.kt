@@ -51,4 +51,34 @@ class ContentProviderCovid : ContentProvider() {
     ): Int {
         TODO("Implement this to handle requests to update one or more rows.")
     }
+
+    private fun getUriMatcher(): UriMatcher {
+        val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
+
+        uriMatcher.addURI(AUTHORITY, HOSPITAL, URI_HOSPITAL)
+        uriMatcher.addURI(AUTHORITY, "$HOSPITAL/#", URI_HOSPITAL_SPECIFIC)
+
+        uriMatcher.addURI(AUTHORITY, STAFF, URI_STAFF)
+        uriMatcher.addURI(AUTHORITY, "$STAFF/#", URI_STAFF_SPECIFIC)
+
+        uriMatcher.addURI(AUTHORITY, PATIENT, URI_PATIENT)
+        uriMatcher.addURI(AUTHORITY, "$PATIENT/#", URI_PATIENT_SPECIFIC)
+
+        return uriMatcher
+    }
+
+    companion object {
+        private const val AUTHORITY = "vitor.treino.covid_project"
+
+        private const val HOSPITAL = "hospital"
+        private const val STAFF = "staff"
+        private const val PATIENT = "patient"
+
+        private const val URI_HOSPITAL = 100
+        private const val URI_HOSPITAL_SPECIFIC = 101
+        private const val URI_STAFF = 200
+        private const val URI_STAFF_SPECIFIC = 201
+        private const val URI_PATIENT = 300
+        private const val URI_PATIENT_SPECIFIC = 301
+    }
 }
