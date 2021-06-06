@@ -27,6 +27,13 @@ class BDTest {
         return id
     }
 
+    private fun insertStaff(table: StaffTable, staff: StaffData): Long {
+        val id = table.insert(staff.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
     private fun getHospitalBD(table: HospitalTable, id: Long): HospitalData {
         val cursor = table.query(
             HospitalTable.TODA_COLUNAS,
@@ -41,6 +48,20 @@ class BDTest {
         return HospitalData.fromCursor(cursor)
     }
 
+    private fun getStaffBD(table: StaffTable, id: Long): StaffData {
+        val cursor = table.query(
+            StaffTable.TODA_COLUNAS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return StaffData.fromCursor(cursor)
+    }
+
     @Before
     fun eraseBD() {
         getAppContext().deleteDatabase(BDHelper.DB_Name)
@@ -53,6 +74,8 @@ class BDTest {
         assert(db.isOpen)
         db.close()
     }
+
+    //TODO: Hospital TableCRUD tests
 
     @Test
     fun testHospitalInsert() {
@@ -109,15 +132,71 @@ class BDTest {
         db.close()
     }
 
-    @Test
-    fun testHospitalRead() {
-        val db = getBdHelper().writableDatabase
-        val hospitalTable = HospitalTable(db)
+    //TODO: Staff Table CRUD tests
 
+    @Test
+    fun testStaffInsert() {
+        val db = getBdHelper().writableDatabase
+
+        val hospitalTable = HospitalTable(db)
         val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
         hospital.id = insertHospital(hospitalTable, hospital)
 
-        assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
+        val staffTable = StaffTable(db)
+        val staff = StaffData(identification = 123, profession = "Doctor", name = "Eduard", idHospital = hospital.id)
+        staff.id = insertStaff(staffTable, staff)
+
+        assertEquals(staff, getStaffBD(staffTable, staff.id))
+
+        db.close()
+    }
+
+    @Test
+    fun testStaffUpdate() {
+        val db = getBdHelper().writableDatabase
+
+        val hospitalTable = HospitalTable(db)
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val staffTable = StaffTable(db)
+        val staff = StaffData(identification = 121, profession = "Doctor", name = "Eduard", idHospital = hospital.id)
+        staff.id = insertStaff(staffTable, staff)
+
+        staff.identification = 333
+        staff.name = "Victor"
+
+        val updatedData = staffTable.update(
+            staff.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(staff.id.toString())
+        )
+
+        assertEquals(1, updatedData)
+
+        assertEquals(staff, getStaffBD(staffTable, staff.id))
+
+        db.close()
+    }
+
+    @Test
+    fun testStaffDelete() {
+        val db = getBdHelper().writableDatabase
+
+        val hospitalTable = HospitalTable(db)
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val staffTable = StaffTable(db)
+        val staff = StaffData(identification = 121, profession = "Doctor", name = "Eduard", idHospital = hospital.id)
+        staff.id = insertStaff(staffTable, staff)
+
+        val deletedData = staffTable.delete(
+            "${BaseColumns._ID}=?",
+            arrayOf(staff.id.toString())
+        )
+
+        assertEquals(1, deletedData)
 
         db.close()
     }

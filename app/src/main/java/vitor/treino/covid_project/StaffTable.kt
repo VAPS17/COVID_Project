@@ -16,7 +16,7 @@ class StaffTable(db: SQLiteDatabase) {
         return db.insert(TABLE_NAME, null, values)
     }
 
-    fun update(values: ContentValues, id: String, whereClause: String, whereArgs: Array<String>): Int {
+    fun update(values: ContentValues, whereClause: String, whereArgs: Array<String>): Int {
         return db.update(TABLE_NAME, values, whereClause, whereArgs)
     }
 
@@ -26,11 +26,11 @@ class StaffTable(db: SQLiteDatabase) {
 
     fun query(
         columns: Array<String>,
-        selection: String,
-        selectionArgs: Array<String>,
-        groupBy: String,
-        having: String,
-        orderBy: String
+        selection: String?,
+        selectionArgs: Array<String>?,
+        groupBy: String?,
+        having: String?,
+        orderBy: String?
     ): Cursor? {
         return db.query(TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
@@ -41,5 +41,7 @@ class StaffTable(db: SQLiteDatabase) {
         const val FIELD_PROFESSION = "profession"
         const val FIELD_NAME = "name"
         const val FIELD_ID_HOSPITAL = "id_hospital"
+
+        val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_IDENTIFICATION, FIELD_PROFESSION, FIELD_NAME, FIELD_ID_HOSPITAL)
     }
 }
