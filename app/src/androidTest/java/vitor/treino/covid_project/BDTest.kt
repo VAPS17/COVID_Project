@@ -18,7 +18,7 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class BDTest {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
-    private fun getBdHelper() = BDHelper(getAppContext())
+    private fun getBdHelper() = DBHelper(getAppContext())
 
     private fun insertHospital(table: HospitalTable, hospital: HospitalData): Long {
         val id = table.insert(hospital.toContentValues())
@@ -85,7 +85,7 @@ class BDTest {
 
     @Before
     fun eraseBD() {
-        getAppContext().deleteDatabase(BDHelper.DB_Name)
+        getAppContext().deleteDatabase(DBHelper.DB_Name)
     }
 
     @Test

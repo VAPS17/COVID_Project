@@ -8,10 +8,10 @@ import android.net.Uri
 import android.provider.BaseColumns
 
 class ContentProviderCovid : ContentProvider() {
-    private var bdHelper : BDHelper? = null
+    private var dbHelper : DBHelper? = null
 
     override fun onCreate(): Boolean {
-        bdHelper = BDHelper(context)
+        dbHelper = DBHelper(context)
 
         return true
     }
@@ -23,7 +23,7 @@ class ContentProviderCovid : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        val db = bdHelper!!.readableDatabase
+        val db = dbHelper!!.readableDatabase
 
         return when (getUriMatcher().match(uri)) {
             URI_HOSPITAL -> HospitalTable(db).query(
@@ -89,7 +89,7 @@ class ContentProviderCovid : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        val db = bdHelper!!.writableDatabase
+        val db = dbHelper!!.writableDatabase
 
         val id = when (getUriMatcher().match(uri)) {
             URI_HOSPITAL -> HospitalTable(db).insert(values!!)
@@ -104,15 +104,39 @@ class ContentProviderCovid : ContentProvider() {
         return Uri.withAppendedPath(uri, id.toString())
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        TODO("Implement this to handle requests to delete one or more rows")
-    }
-
     override fun update(
-        uri: Uri, values: ContentValues?, selection: String?,
+        uri: Uri,
+        values: ContentValues?,
+        selection: String?,
         selectionArgs: Array<String>?
     ): Int {
-        TODO("Implement this to handle requests to update one or more rows.")
+        val db = dbHelper!!.writableDatabase
+
+        return when (getUriMatcher().match(uri)) {
+            URI_HOSPITAL_SPECIFIC -> HospitalTable(db).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_STAFF_SPECIFIC -> StaffTable(db).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_PATIENT_SPECIFIC -> PatientTable(db).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            else -> 0
+        }
+    }
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
+        TODO("Implement this to handle requests to delete one or more rows")
     }
 
     private fun getUriMatcher(): UriMatcher {
