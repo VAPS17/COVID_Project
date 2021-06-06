@@ -9,7 +9,7 @@ class StaffTable(db: SQLiteDatabase) {
     private val db : SQLiteDatabase = db
 
     fun create() {
-        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_IDENTIFICATION INTEGER NOT NULL UNIQUE, $FIELD_PROFESSION TEXT NOT NULL, $FIELD_NAME TEXT NOT NULL, $FIELD_N_PATIENTS TEXT NOT NULL, $FIELD_ID_HOSPITAL INTEGER NOT NULL, FOREIGN KEY ($FIELD_ID_HOSPITAL) REFERENCES ${HospitalTable.TABLE_NAME})")
+        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_IDENTIFICATION INTEGER NOT NULL UNIQUE, $FIELD_PROFESSION TEXT NOT NULL, $FIELD_NAME TEXT NOT NULL, $FIELD_ID_HOSPITAL INTEGER NOT NULL, FOREIGN KEY ($FIELD_ID_HOSPITAL) REFERENCES ${HospitalTable.TABLE_NAME})")
     }
 
     fun insert(values: ContentValues): Long {
@@ -40,7 +40,6 @@ class StaffTable(db: SQLiteDatabase) {
         const val FIELD_IDENTIFICATION = "identification"
         const val FIELD_PROFESSION = "profession"
         const val FIELD_NAME = "name"
-        const val FIELD_N_PATIENTS = "n_patients"
         const val FIELD_ID_HOSPITAL = "id_hospital"
     }
 }

@@ -7,12 +7,12 @@ import android.provider.BaseColumns
 data class HospitalData(var id: Long = -1, var name: String, var location: String, var address: String, var state: String) {
 
     fun toContentValues(): ContentValues {
-        val values = ContentValues()
-
-        values.put(HospitalTable.FIELD_NAME, name)
-        values.put(HospitalTable.FIELD_LOCATION, location)
-        values.put(HospitalTable.FIELD_ADDRESS, address)
-        values.put(HospitalTable.FIELD_STATE, state)
+        val values = ContentValues().apply {
+            put(HospitalTable.FIELD_NAME, name)
+            put(HospitalTable.FIELD_LOCATION, location)
+            put(HospitalTable.FIELD_ADDRESS, address)
+            put(HospitalTable.FIELD_STATE, state)
+        }
 
         return values
     }
