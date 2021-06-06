@@ -72,23 +72,40 @@ class ContentProviderCovid : ContentProvider() {
             )
 
             else -> null
-
         }
+    }
+
+    override fun getType(uri: Uri): String? {
+        return when (getUriMatcher().match(uri)) {
+            URI_HOSPITAL -> "$MULTIPLOS_ITEMS/$HOSPITAL"
+            URI_HOSPITAL_SPECIFIC -> "$UNICO_ITEM/$HOSPITAL"
+            URI_STAFF -> "$MULTIPLOS_ITEMS/$STAFF"
+            URI_STAFF_SPECIFIC -> "$UNICO_ITEM/$STAFF"
+            URI_PATIENT -> "$MULTIPLOS_ITEMS/$PATIENT"
+            URI_PATIENT_SPECIFIC -> "$UNICO_ITEM/$PATIENT"
+
+            else -> null
+        }
+    }
+
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        val db = bdHelper!!.writableDatabase
+
+        val id = when (getUriMatcher().match(uri)) {
+            URI_HOSPITAL -> HospitalTable(db).insert(values!!)
+            URI_STAFF -> StaffTable(db).insert(values!!)
+            URI_PATIENT -> PatientTable(db).insert(values!!)
+
+            else -> 1L
+        }
+
+        if (id == 1L) return null
+
+        return Uri.withAppendedPath(uri, id.toString())
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
         TODO("Implement this to handle requests to delete one or more rows")
-    }
-
-    override fun getType(uri: Uri): String? {
-        TODO(
-            "Implement this to handle requests for the MIME type of the data" +
-                    "at the given URI"
-        )
-    }
-
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        TODO("Implement this to handle requests to insert a new row.")
     }
 
     override fun update(
@@ -126,5 +143,8 @@ class ContentProviderCovid : ContentProvider() {
         private const val URI_STAFF_SPECIFIC = 201
         private const val URI_PATIENT = 300
         private const val URI_PATIENT_SPECIFIC = 301
+
+        private const val MULTIPLOS_ITEMS = "vnd.android.cursor.dir"
+        private const val UNICO_ITEM = "vnd.android.cursor.item"
     }
 }
