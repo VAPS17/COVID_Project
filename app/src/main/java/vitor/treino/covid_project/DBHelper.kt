@@ -11,6 +11,8 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_Name, null, DB_
             HospitalTable(db).create()
             StaffTable(db).create()
             PatientTable(db).create()
+
+
         }
     }
 

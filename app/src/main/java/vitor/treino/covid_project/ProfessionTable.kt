@@ -6,5 +6,5 @@ import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
 class ProfessionTable(db: SQLiteDatabase){
-
+    private val db: SQLiteDatabase = db
 }

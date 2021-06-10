@@ -4,14 +4,14 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
 
-data class PatientData(var id: Long = -1, var identification: Long, var name: String, var disease: String, var priority: String, var idStaff:Long) {
+data class PatientData(var id: Long = -1, var identification: Long, var name: String, var disease: String, var priority: String, var idHospital:Long) {
     fun toContentValues(): ContentValues {
         val values = ContentValues().apply {
             put(PatientTable.FIELD_IDENTIFICATION, identification)
             put(PatientTable.FIELD_NAME, name)
             put(PatientTable.FIELD_DISEASE, disease)
             put(PatientTable.FIELD_PRIORITY, priority)
-            put(PatientTable.FIELD_ID_STAFF, idStaff)
+            put(PatientTable.FIELD_ID_HOSPITAL, idHospital)
         }
 
         return values
@@ -24,16 +24,16 @@ data class PatientData(var id: Long = -1, var identification: Long, var name: St
             val colName = cursor.getColumnIndex(PatientTable.FIELD_NAME)
             val colDisease = cursor.getColumnIndex(PatientTable.FIELD_DISEASE)
             val colPriority = cursor.getColumnIndex(PatientTable.FIELD_PRIORITY)
-            val colIdStaff = cursor.getColumnIndex(PatientTable.FIELD_ID_STAFF)
+            val colIdHospital = cursor.getColumnIndex(PatientTable.FIELD_ID_HOSPITAL)
 
             val id = cursor.getLong(colId)
             val identification = cursor.getLong(colIdentification)
             val name = cursor.getString(colName)
             val disease = cursor.getString(colDisease)
             val priority = cursor.getString(colPriority)
-            val idStaff = cursor.getLong(colIdStaff)
+            val idHospital = cursor.getLong(colIdHospital)
 
-            return PatientData(id, identification, name, disease, priority, idStaff)
+            return PatientData(id, identification, name, disease, priority, idHospital)
         }
     }
 }

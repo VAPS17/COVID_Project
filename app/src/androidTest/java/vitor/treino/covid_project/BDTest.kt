@@ -237,7 +237,7 @@ class BDTest {
         staff.id = insertStaff(staffTable, staff)
 
         val patientTable = PatientTable(db)
-        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idStaff = staff.id)
+        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idHospital = hospital.id)
         patient.id = insertPatient(patientTable, patient)
 
         assertEquals(patient, getPatientBD(patientTable, patient.id))
@@ -258,7 +258,7 @@ class BDTest {
         staff.id = insertStaff(staffTable, staff)
 
         val patientTable = PatientTable(db)
-        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idStaff = staff.id)
+        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idHospital = hospital.id)
         patient.id = insertPatient(patientTable, patient)
 
         patient.identification = 333
@@ -292,7 +292,7 @@ class BDTest {
         staff.id = insertStaff(staffTable, staff)
 
         val patientTable = PatientTable(db)
-        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idStaff = staff.id)
+        val patient = PatientData(identification = 222, name = "Clara Martins", disease = "CV-19 Variant-2", priority = "HIGH", idHospital = hospital.id)
         patient.id = insertPatient(patientTable, patient)
 
         val deletedData = patientTable.delete(
