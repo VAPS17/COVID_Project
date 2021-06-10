@@ -9,7 +9,7 @@ class HospitalTable(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun create() {
-        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_NAME TEXT NOT NULL, $FIELD_LOCATION TEXT NOT NULL, $FIELD_ADDRESS TEXT NOT NULL, $FIELD_STATE TEXT NOT NULL)")
+        db.execSQL("CREATE TABLE $TABLE_NAME (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $FIELD_NAME TEXT NOT NULL, $FIELD_LOCATION TEXT NOT NULL, $FIELD_ADDRESS TEXT NOT NULL, $FIELD_STATE TEXT NOT NULL, $FIELD_INFECTED TEXT NOT NULL, $FIELD_RECOVERED TEXT NOT NULL)")
     }
 
     fun insert(values: ContentValues): Long {
@@ -41,7 +41,9 @@ class HospitalTable(db: SQLiteDatabase) {
         const val FIELD_LOCATION = "location"
         const val FIELD_ADDRESS = "address"
         const val FIELD_STATE = "state"
+        const val FIELD_INFECTED = "infected"
+        const val FIELD_RECOVERED = "recovered"
 
-        val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME, FIELD_LOCATION, FIELD_ADDRESS, FIELD_STATE)
+        val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME, FIELD_LOCATION, FIELD_ADDRESS, FIELD_STATE, FIELD_INFECTED, FIELD_RECOVERED)
     }
 }

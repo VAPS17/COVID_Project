@@ -96,7 +96,7 @@ class BDTest {
         db.close()
     }
 
-    //TODO: Hospital TableCRUD tests
+    //TODO: Hospital Table CRUD tests
 
     @Test
     fun testHospitalInsert() {

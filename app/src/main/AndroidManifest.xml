@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.COVID_Project">
         <provider
-            android:name=".ContentProviderCovid"
+            android:name=".ContentProviderDB"
             android:authorities="vitor.treino.covid_project"
             android:enabled="true"
             android:exported="true"></provider>

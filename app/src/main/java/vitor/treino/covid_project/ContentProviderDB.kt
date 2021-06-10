@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
 
-class ContentProviderCovid : ContentProvider() {
+class ContentProviderDB : ContentProvider() {
     private var dbHelper : DBHelper? = null
 
     override fun onCreate(): Boolean {
