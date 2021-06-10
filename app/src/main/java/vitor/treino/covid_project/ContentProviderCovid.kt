@@ -111,7 +111,7 @@ class ContentProviderCovid: ContentProvider() {
     }
 
     companion object {
-        private const val AUTHORITY = "vitor.treino.covid_test"
+        private const val AUTHORITY = "vitor.treino.covid_project"
 
         private const val HOSPITAL = "hospital"
 
