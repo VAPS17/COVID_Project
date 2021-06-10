@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="vitor.treino.covid_project.FirstFragment"
+        android:name="vitor.treino.covid_project.HospitalFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_hospital">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
