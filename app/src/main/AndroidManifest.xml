@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="vitor.treino.covid_project"
+            android:name=".ContentProviderCovid"
+            android:exported="false" />
     </application>
 
 </manifest>

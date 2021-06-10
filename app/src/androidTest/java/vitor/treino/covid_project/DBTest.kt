@@ -10,15 +10,10 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 @RunWith(AndroidJUnit4::class)
-class BDTest {
+class DBTest {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
-    private fun getBdHelper() = DBHelper(getAppContext())
+    private fun getDbHelper() = DBHelper(getAppContext())
 
     private fun insertHospital(table: HospitalTable, hospital: HospitalData): Long {
         val id = table.insert(hospital.toContentValues())
@@ -29,7 +24,7 @@ class BDTest {
 
     private fun getHospitalBD(table: HospitalTable, id: Long): HospitalData {
         val cursor = table.query(
-            HospitalTable.TODA_COLUNAS,
+            HospitalTable.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null, null, null
@@ -48,20 +43,20 @@ class BDTest {
 
     @Test
     fun testOpenBD() {
-        val db = getBdHelper().readableDatabase
+        val db = getDbHelper().readableDatabase
 
         assert(db.isOpen)
         db.close()
     }
 
-    //TODO: Hospital Table CRUD tests
+    //TODO: Testes CRUD à tabela Hospital
 
     @Test
     fun testHospitalInsert() {
-        val db = getBdHelper().writableDatabase
+        val db = getDbHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "FULL", infected = 123, recovered = 321)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
@@ -71,14 +66,14 @@ class BDTest {
 
     @Test
     fun testHospitalUpdate() {
-        val db = getBdHelper().writableDatabase
+        val db = getDbHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
+        val hospital = HospitalData(name = "Mateus", location = "Porto", address = "?", state = "?", infected = 456, recovered = 654)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         hospital.address = "Avenida YYY"
-        hospital.state = "Empty"
+        hospital.state = "EMPTY"
 
         val updatedData = hospitalTable.update(
             hospital.toContentValues(),
@@ -95,10 +90,10 @@ class BDTest {
 
     @Test
     fun testHospitalDelete() {
-        val db = getBdHelper().writableDatabase
+        val db = getDbHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
+        val hospital = HospitalData(name = "S. Antonio", location = "Mafra", address = "Rua Grande", state = "FULL", infected = 789, recovered = 987)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val deletedData = hospitalTable.delete(
@@ -107,6 +102,19 @@ class BDTest {
         )
 
         assertEquals(1, deletedData)
+
+        db.close()
+    }
+
+    @Test
+    fun testHospitalRead() {
+        val db = getDbHelper().writableDatabase
+        val hospitalTable = HospitalTable(db)
+
+        val hospital = HospitalData(name = "São João", location = "Alentejo", address = "Bairro das Pinhas", state = "EMPTY", infected = 0, recovered = 100)
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
 
         db.close()
     }
