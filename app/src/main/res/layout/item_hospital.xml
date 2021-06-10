@@ -31,7 +31,7 @@
         tools:text="Localização" />
 
     <TextView
-        android:id="@+id/textViewMorada"
+        android:id="@+id/textViewAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
