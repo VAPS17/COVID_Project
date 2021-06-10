@@ -5,21 +5,20 @@ import android.database.Cursor
 import android.provider.BaseColumns
 
 data class HospitalData(var id: Long = -1, var name: String, var location: String, var address: String, var state: String, var infected: Long, var recovered: Long) {
-
     fun toContentValues(): ContentValues {
-        val values = ContentValues().apply {
-            put(HospitalTable.FIELD_NAME, name)
-            put(HospitalTable.FIELD_LOCATION, location)
-            put(HospitalTable.FIELD_ADDRESS, address)
-            put(HospitalTable.FIELD_STATE, state)
-            put(HospitalTable.FIELD_INFECTED, infected)
-            put(HospitalTable.FIELD_RECOVERED, recovered)
-        }
+        val values = ContentValues()
+
+        values.put(HospitalTable.FIELD_NAME, name)
+        values.put(HospitalTable.FIELD_LOCATION, location)
+        values.put(HospitalTable.FIELD_ADDRESS, address)
+        values.put(HospitalTable.FIELD_STATE, state)
+        values.put(HospitalTable.FIELD_INFECTED, infected)
+        values.put(HospitalTable.FIELD_RECOVERED, recovered)
 
         return values
     }
 
-    companion object{
+    companion object {
         fun fromCursor(cursor: Cursor): HospitalData {
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colName = cursor.getColumnIndex(HospitalTable.FIELD_NAME)

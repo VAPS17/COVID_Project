@@ -5,7 +5,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
-class HospitalTable(db: SQLiteDatabase) {
+class  HospitalTable(db: SQLiteDatabase){
     private val db: SQLiteDatabase = db
 
     fun create() {
@@ -44,6 +44,6 @@ class HospitalTable(db: SQLiteDatabase) {
         const val FIELD_INFECTED = "infected"
         const val FIELD_RECOVERED = "recovered"
 
-        val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME, FIELD_LOCATION, FIELD_ADDRESS, FIELD_STATE, FIELD_INFECTED, FIELD_RECOVERED)
+        val TODAS_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME, FIELD_LOCATION, FIELD_ADDRESS, FIELD_STATE, FIELD_INFECTED, FIELD_RECOVERED)
     }
 }
