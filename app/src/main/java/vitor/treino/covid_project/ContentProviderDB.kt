@@ -30,7 +30,8 @@ class ContentProviderDB : ContentProvider() {
                 projection as Array<String>,
                 selection,
                 selectionArgs as Array<String>,
-                null, null,
+                null,
+                null,
                 sortOrder
             )
 
@@ -38,14 +39,17 @@ class ContentProviderDB : ContentProvider() {
                 projection as Array<String>,
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!),
-                null, null, null
+                null,
+                null,
+                null
             )
 
             URI_STAFF -> StaffTable(db).query(
                 projection as Array<String>,
                 selection,
                 selectionArgs as Array<String>,
-                null, null,
+                null,
+                null,
                 sortOrder
             )
 
@@ -53,14 +57,17 @@ class ContentProviderDB : ContentProvider() {
                 projection as Array<String>,
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!),
-                null, null, null
+                null,
+                null,
+                null
             )
 
             URI_PATIENT -> PatientTable(db).query(
                 projection as Array<String>,
                 selection,
                 selectionArgs as Array<String>,
-                null, null,
+                null,
+                null,
                 sortOrder
             )
 
@@ -68,7 +75,9 @@ class ContentProviderDB : ContentProvider() {
                 projection as Array<String>,
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!),
-                null, null, null
+                null,
+                null,
+                null
             )
 
             else -> null

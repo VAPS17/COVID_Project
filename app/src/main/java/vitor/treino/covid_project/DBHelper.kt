@@ -11,8 +11,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_Name, null, DB_
             HospitalTable(db).create()
             StaffTable(db).create()
             PatientTable(db).create()
-
-
         }
     }
 
@@ -20,7 +18,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_Name, null, DB_
     }
 
     companion object{
-        const val DB_Name = "COVID_Project"
+        const val DB_Name = "covid_project.db"
         const val DB_Version = 1
     }
 }

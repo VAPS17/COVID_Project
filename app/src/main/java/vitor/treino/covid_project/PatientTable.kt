@@ -41,7 +41,7 @@ class PatientTable(db: SQLiteDatabase) {
         const val FIELD_NAME = "name"
         const val FIELD_DISEASE = "disease"
         const val FIELD_PRIORITY = "priority"
-        const val FIELD_ID_HOSPITAL = "id_staff"
+        const val FIELD_ID_HOSPITAL = "id_hospital"
 
         val TODA_COLUNAS = arrayOf(BaseColumns._ID, FIELD_IDENTIFICATION, FIELD_NAME, FIELD_DISEASE, FIELD_PRIORITY, FIELD_ID_HOSPITAL)
     }
