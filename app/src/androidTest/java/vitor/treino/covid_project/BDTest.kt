@@ -103,7 +103,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         assertEquals(hospital, getHospitalBD(hospitalTable, hospital.id))
@@ -116,7 +116,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         hospital.address = "Avenida YYY"
@@ -140,7 +140,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
         val hospitalTable = HospitalTable(db)
 
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val deletedData = hospitalTable.delete(
@@ -160,7 +160,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)
@@ -177,7 +177,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)
@@ -205,7 +205,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)
@@ -229,7 +229,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)
@@ -250,7 +250,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)
@@ -284,7 +284,7 @@ class BDTest {
         val db = getBdHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full")
+        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "Full", infected = 122, recovered = 222)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val staffTable = StaffTable(db)

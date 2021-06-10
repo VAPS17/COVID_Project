@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
 
-data class HospitalData(var id: Long = -1, var name: String, var location: String, var address: String, var state: String, var infected: String, var recovered: String) {
+data class HospitalData(var id: Long = -1, var name: String, var location: String, var address: String, var state: String, var infected: Long, var recovered: Long) {
 
     fun toContentValues(): ContentValues {
         val values = ContentValues().apply {
@@ -34,8 +34,8 @@ data class HospitalData(var id: Long = -1, var name: String, var location: Strin
             val location = cursor.getString(colLocation)
             val address = cursor.getString(colAddress)
             val state = cursor.getString(colState)
-            val infected = cursor.getString(colInfected)
-            val recovered = cursor.getString(colRecovered)
+            val infected = cursor.getLong(colInfected)
+            val recovered = cursor.getLong(colRecovered)
 
             return HospitalData(id, name, location, address, state, infected, recovered)
         }
