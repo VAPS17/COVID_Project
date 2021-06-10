@@ -9,11 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.COVID_Project">
-        <provider
-            android:name=".ContentProviderDB"
-            android:authorities="vitor.treino.covid_project"
-            android:enabled="true"
-            android:exported="true"></provider>
 
         <activity
             android:name=".MainActivity"
