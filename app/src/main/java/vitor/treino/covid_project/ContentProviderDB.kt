@@ -187,6 +187,9 @@ class ContentProviderDB : ContentProvider() {
         private const val URI_PATIENT = 300
         private const val URI_PATIENT_SPECIFIC = 301
 
+        private val ENDERECO_BASE = Uri.parse("content//$AUTHORITY")
+        public val ENDERECO_HOSPITAL = Uri.withAppendedPath(ENDERECO_BASE, HOSPITAL)
+
         private const val MULTIPLOS_ITEMS = "vnd.android.cursor.dir"
         private const val UNICO_ITEM = "vnd.android.cursor.item"
     }
