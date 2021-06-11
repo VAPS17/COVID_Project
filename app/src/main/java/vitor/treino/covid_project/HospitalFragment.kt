@@ -44,7 +44,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         recyclerViewHospital.layoutManager = LinearLayoutManager(requireContext())
 
         LoaderManager.getInstance(this)
-            .initLoader(ID_LOADER_MANAGER_LIVROS, null, this)
+            .initLoader(ID_LOADER_MANAGER_HOSPITAL, null, this)
 
 //            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
@@ -73,6 +73,6 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     companion object {
-        const val ID_LOADER_MANAGER_LIVROS = 0
+        const val ID_LOADER_MANAGER_HOSPITAL = 0
     }
 }

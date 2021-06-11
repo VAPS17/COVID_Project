@@ -38,7 +38,7 @@ class DBTest {
 
     @Before
     fun eraseBD() {
-        getAppContext().deleteDatabase(DBHelper.DB_Name)
+        //getAppContext().deleteDatabase(DBHelper.DB_Name)
     }
 
     @Test

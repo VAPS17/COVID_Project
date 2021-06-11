@@ -17,10 +17,12 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
     class ViewHolderHospital(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewName = itemView.findViewById<TextView>(R.id.textViewName)
         private val textViewLocation = itemView.findViewById<TextView>(R.id.textViewLocation)
+        private val textViewAddress = itemView.findViewById<TextView>(R.id.textViewAddress)
 
         fun updateHospital(hospital: HospitalData) {
             textViewName.text = hospital.name
             textViewLocation.text = hospital.location
+            textViewAddress.text = " | " + hospital.address
         }
     }
 
