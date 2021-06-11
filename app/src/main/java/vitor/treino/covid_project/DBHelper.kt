@@ -9,6 +9,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_Name, null, DB_
     override fun onCreate(db: SQLiteDatabase?){
         if (db != null) {
             HospitalTable(db).create()
+            StaffTable(db).create()
         }
     }
 
