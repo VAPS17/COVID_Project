@@ -44,6 +44,24 @@ class ContentProviderCovid: ContentProvider() {
                 null
             )
 
+            URI_STAFF -> StaffTable(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+
+            URI_STAFF_SPECIFIC -> StaffTable(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+
             else -> null
         }
     }
@@ -52,6 +70,8 @@ class ContentProviderCovid: ContentProvider() {
         return when (getUriMatcher().match(uri)) {
             URI_HOSPITAL -> "$MULTIPLOS_ITEMS/$HOSPITAL"
             URI_HOSPITAL_SPECIFIC -> "$UNICO_ITEM/$HOSPITAL"
+            URI_STAFF -> "$MULTIPLOS_ITEMS/$STAFF"
+            URI_STAFF_SPECIFIC -> "$UNICO_ITEM/$STAFF"
             else -> null
         }
     }
@@ -61,6 +81,7 @@ class ContentProviderCovid: ContentProvider() {
 
         val id = when (getUriMatcher().match(uri)) {
             URI_HOSPITAL -> HospitalTable(bd).insert(values!!)
+            URI_STAFF -> StaffTable(bd).insert(values!!)
             else -> -1L
         }
 
@@ -78,6 +99,11 @@ class ContentProviderCovid: ContentProvider() {
                 arrayOf(uri.lastPathSegment!!)
             )
 
+            URI_STAFF_SPECIFIC -> StaffTable(bd).delete(
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
             else -> 0
         }
     }
@@ -91,7 +117,7 @@ class ContentProviderCovid: ContentProvider() {
         val bd = dbHelper!!.writableDatabase
 
         return when (getUriMatcher().match(uri)) {
-            URI_HOSPITAL_SPECIFIC -> HospitalTable(bd).update(
+            URI_STAFF_SPECIFIC -> StaffTable(bd).update(
                 values!!,
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!)
@@ -106,6 +132,8 @@ class ContentProviderCovid: ContentProvider() {
 
         uriMatcher.addURI(AUTHORITY, HOSPITAL, URI_HOSPITAL)
         uriMatcher.addURI(AUTHORITY, "$HOSPITAL/#", URI_HOSPITAL_SPECIFIC)
+        uriMatcher.addURI(AUTHORITY, STAFF, URI_STAFF)
+        uriMatcher.addURI(AUTHORITY, "$STAFF/#", URI_STAFF_SPECIFIC)
 
         return uriMatcher
     }
@@ -114,15 +142,19 @@ class ContentProviderCovid: ContentProvider() {
         private const val AUTHORITY = "vitor.treino.covid_project"
 
         private const val HOSPITAL = "hospital"
+        private const val STAFF = "staff"
 
         private const val URI_HOSPITAL = 100
         private const val URI_HOSPITAL_SPECIFIC = 101
+        private const val URI_STAFF = 200
+        private const val URI_STAFF_SPECIFIC = 201
 
         private const val MULTIPLOS_ITEMS = "vnd.android.cursor.dir"
         private const val UNICO_ITEM = "vnd.android.cursor.item"
 
         private val ENDERECO_BASE = Uri.parse("content://$AUTHORITY")
         public val ENDERECO_HOSPITAL = Uri.withAppendedPath(ENDERECO_BASE, HOSPITAL)
+        public val ENDERECO_STAFF = Uri.withAppendedPath(ENDERECO_BASE, STAFF)
 
     }
 }
