@@ -30,6 +30,8 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         savedInstanceState: Bundle?
     ): View? {
 
+        AppData.hospitalFragment = this
+
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         return binding.root
 

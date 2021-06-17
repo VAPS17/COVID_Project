@@ -1,5 +1,6 @@
 package vitor.treino.covid_project
 
+import android.annotation.SuppressLint
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +15,46 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
             notifyDataSetChanged()
         }
 
-    class ViewHolderHospital(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolderHospital(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val textViewName = itemView.findViewById<TextView>(R.id.textViewName)
         private val textViewLocation = itemView.findViewById<TextView>(R.id.textViewLocation)
         private val textViewAddress = itemView.findViewById<TextView>(R.id.textViewAddress)
 
+        private lateinit var hospital: HospitalData
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun updateHospital(hospital: HospitalData) {
+            this.hospital = hospital
+
             textViewName.text = hospital.name
             textViewLocation.text = hospital.location
             textViewAddress.text = " | " + hospital.address
+        }
+
+        override fun onClick(v: View?) {
+            selected?.desSelect()
+            select()
+        }
+
+
+        @SuppressLint("ResourceAsColor")
+        private fun select(){
+            selected = this
+            itemView.setBackgroundColor(R.color.selected)
+            AppData.selectedHospital = hospital
+        }
+
+        @SuppressLint("ResourceAsColor")
+        private fun desSelect(){
+            selected = null
+            itemView.setBackgroundColor(android.R.color.white)
+        }
+
+        companion object{
+            var selected : ViewHolderHospital? = null
         }
     }
 
