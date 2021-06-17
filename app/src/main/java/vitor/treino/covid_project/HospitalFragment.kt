@@ -46,7 +46,9 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_HOSPITAL, null, this)
 
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        }
     }
 
     override fun onDestroyView() {
