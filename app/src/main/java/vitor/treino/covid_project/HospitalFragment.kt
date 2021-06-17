@@ -46,7 +46,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_HOSPITAL, null, this)
 
-        binding.fab.setOnClickListener {
+        binding.newHospital.setOnClickListener {
             findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
         }
     }

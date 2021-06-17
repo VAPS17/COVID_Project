@@ -10,4 +10,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="add_a_new_hospital">Add a new Hospital</string>
+    <string name="hospital_name">Hospital name</string>
+    <string name="location">Location</string>
+    <string name="address">Address</string>
 </resources>
