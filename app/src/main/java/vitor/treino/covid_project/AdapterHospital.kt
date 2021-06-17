@@ -45,6 +45,7 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
             selected = this
             itemView.setBackgroundColor(R.color.selected)
             AppData.selectedHospital = hospital
+            AppData.activity.updateEditDelete(true)
         }
 
         @SuppressLint("ResourceAsColor")

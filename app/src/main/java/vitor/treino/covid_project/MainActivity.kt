@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import vitor.treino.covid_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 */
+
+
         AppData.activity = this
     }
 
@@ -59,5 +62,18 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun updateEditDelete(showEditDelete: Boolean){
+        val editHospital = findViewById<FloatingActionButton>(R.id.editHospital)
+        val deleteHospital = findViewById<FloatingActionButton>(R.id.deleteHospital)
+
+        if (showEditDelete){
+            editHospital.show()
+            deleteHospital.show()
+        } else {
+            editHospital.hide()
+            deleteHospital.hide()
+        }
     }
 }

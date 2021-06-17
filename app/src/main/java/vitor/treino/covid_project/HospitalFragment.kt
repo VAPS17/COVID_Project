@@ -21,6 +21,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentHospitalBinding? = null
     private var adapterHospital : AdapterHospital? = null
 
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -48,9 +49,11 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_HOSPITAL, null, this)
 
+
         binding.newHospital.setOnClickListener {
             findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
         }
+
     }
 
     override fun onDestroyView() {
