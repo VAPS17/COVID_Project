@@ -13,4 +13,6 @@
     <string name="hospital_name">Hospital name</string>
     <string name="location">Location</string>
     <string name="address">Address</string>
+    <string name="staff">Staff</string>
+    <string name="patient">Patient</string>
 </resources>

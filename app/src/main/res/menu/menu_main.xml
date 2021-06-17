@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vitor.treino.covid_project.MainActivity">
     <item
+        android:id="@+id/action_staff"
+        android:title="@string/staff" />
+    <item
+        android:id="@+id/action_patient"
+        android:title="@string/patient" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
