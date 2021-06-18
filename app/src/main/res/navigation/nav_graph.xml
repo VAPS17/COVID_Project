@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_HospitalFragment_to_NovoHospitalFragment"
             app:destination="@id/NovoHospitalFragment" />
+        <action
+            android:id="@+id/action_HospitalFragment_to_StaffFragment"
+            app:destination="@id/StaffFragment" />
     </fragment>
     <fragment
         android:id="@+id/NovoHospitalFragment"
@@ -23,6 +26,15 @@
 
         <action
             android:id="@+id/action_NovoHospitalFragment_to_HospitalFragment"
+            app:destination="@id/HospitalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/StaffFragment"
+        android:name="vitor.treino.covid_project.StaffFragment"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_staff" >
+        <action
+            android:id="@+id/action_StaffFragment_to_HospitalFragment"
             app:destination="@id/HospitalFragment" />
     </fragment>
 </navigation>

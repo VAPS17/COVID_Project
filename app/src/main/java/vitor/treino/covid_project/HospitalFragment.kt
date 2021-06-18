@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
@@ -77,6 +78,18 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
         adapterHospital!!.cursor = null
+    }
+
+    fun navigateStaff(){
+        findNavController().navigate(R.id.action_HospitalFragment_to_StaffFragment)
+    }
+
+    fun optionMenuProcessing(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_staff -> navigateStaff()
+            else -> return false
+        }
+        return true
     }
 
     companion object {

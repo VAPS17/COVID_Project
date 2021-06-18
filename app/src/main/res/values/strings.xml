@@ -4,11 +4,10 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Hospitals</string>
     <string name="second_fragment_label">New Hospital</string>
+    <string name="third_fragment_label">Staff</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="add_a_new_hospital">Add a new Hospital</string>
     <string name="hospital_name">Hospital name</string>
     <string name="location">Location</string>
@@ -17,8 +16,6 @@
     <string name="patient">Patient</string>
     <string name="edit_hosptital">Edit Hosptital</string>
     <string name="delete_hospital">Delete Hospital</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_a_new_staff">Add a new Staff</string>
     <string name="delete_staff">Delete Staff</string>
     <string name="edit_staff">Edit Staff</string>
