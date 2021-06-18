@@ -17,4 +17,9 @@
     <string name="patient">Patient</string>
     <string name="edit_hosptital">Edit Hosptital</string>
     <string name="delete_hospital">Delete Hospital</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_a_new_staff">Add a new Staff</string>
+    <string name="delete_staff">Delete Staff</string>
+    <string name="edit_staff">Edit Staff</string>
 </resources>
