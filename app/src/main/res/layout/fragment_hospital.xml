@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/delete_hospital"
-        android:src="@android:drawable/ic_delete"
+        android:src="@android:drawable/ic_menu_delete"
         android:visibility="invisible"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
