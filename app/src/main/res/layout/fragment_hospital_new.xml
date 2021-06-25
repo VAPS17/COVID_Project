@@ -29,6 +29,7 @@
         android:layout_marginBottom="380dp"
         android:contentDescription="@string/add_a_new_hospital"
         android:src="@android:drawable/ic_menu_save"
+        android:enabled="false"
         app:backgroundTint="@android:color/holo_green_light"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
