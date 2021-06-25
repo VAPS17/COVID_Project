@@ -7,13 +7,25 @@
     android:orientation="vertical"
     tools:context=".HospitalNewFragment">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/insert_hospital_text"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cancelHospital"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="350dp"
         android:contentDescription="@string/delete_hospital"
         android:src="@android:drawable/ic_delete"
         app:backgroundTint="@color/red"
@@ -26,10 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="350dp"
         android:contentDescription="@string/add_a_new_hospital"
-        android:src="@android:drawable/ic_menu_save"
         android:enabled="false"
+        android:src="@android:drawable/ic_menu_save"
         app:backgroundTint="@android:color/holo_green_light"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,6 +51,7 @@
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

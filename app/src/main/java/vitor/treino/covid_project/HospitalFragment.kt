@@ -33,6 +33,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     ): View? {
 
         AppData.hospitalFragment = this
+        (activity as MainActivity).supportActionBar?.show()
 
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         return binding.root

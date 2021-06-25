@@ -31,11 +31,13 @@ class HospitalNewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+
+        AppData.hospitalNewFragment = this
+        (activity as MainActivity).supportActionBar?.hide()
 
         _binding = FragmentHospitalNewBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,9 +47,9 @@ class HospitalNewFragment : Fragment() {
         editTextLocation = view.findViewById(R.id.editTextLocation)
         editTextAddress = view.findViewById(R.id.editTextAddress)
 
-        editTextName.addTextChangedListener(loginTextWatcher)
-        editTextLocation.addTextChangedListener(loginTextWatcher)
-        editTextAddress.addTextChangedListener(loginTextWatcher)
+        editTextName.addTextChangedListener(confirmHospitalDataWatcher)
+        editTextLocation.addTextChangedListener(confirmHospitalDataWatcher)
+        editTextAddress.addTextChangedListener(confirmHospitalDataWatcher)
 
         _binding?.addHospital?.setOnClickListener{
             save()
@@ -91,7 +93,7 @@ class HospitalNewFragment : Fragment() {
         _binding = null
     }
 
-    private val loginTextWatcher: TextWatcher = object : TextWatcher {
+    private val confirmHospitalDataWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             val nameInput: String = editTextName.text.toString().trim()
