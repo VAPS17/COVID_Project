@@ -1,11 +1,13 @@
 package vitor.treino.covid_project
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -53,6 +55,7 @@ class HospitalNewFragment : Fragment() {
 
         _binding?.addHospital?.setOnClickListener{
             saveHospital()
+            it.hideKeyboard()
         }
 
         _binding?.cancelHospital?.setOnClickListener {
@@ -109,5 +112,10 @@ class HospitalNewFragment : Fragment() {
             _binding?.addHospital?.isEnabled = nameInput.isNotEmpty() && locationInput.isNotEmpty() && addressInput.isNotEmpty();
         }
         override fun afterTextChanged(s: Editable) {}
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }
