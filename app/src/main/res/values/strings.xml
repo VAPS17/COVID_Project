@@ -20,4 +20,6 @@
     <string name="delete_staff">Delete Staff</string>
     <string name="edit_staff">Edit Staff</string>
     <string name="insert_hospital_text">Insert The New Hospital Data</string>
+    <string name="hSaved">Hospital saved.</string>
+    <string name="hError">Error on saving hospital!!</string>
 </resources>

@@ -1,5 +1,6 @@
 package vitor.treino.covid_project
 
+import android.app.AlertDialog
 import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -56,6 +58,21 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
         }
 
+        binding.deleteHospital.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Are you sure you want to Delete?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ ->
+                    navigateStaff()
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+        }
+
     }
 
     override fun onDestroyView() {
@@ -82,7 +99,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     fun navigateStaff(){
-        findNavController().navigate(R.id.action_HospitalFragment_to_StaffFragment)
+        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
     }
 
     fun optionMenuProcessing(item: MenuItem): Boolean {

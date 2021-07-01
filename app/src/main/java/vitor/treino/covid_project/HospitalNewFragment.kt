@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.view.isVisible
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -80,11 +80,17 @@ class HospitalNewFragment : Fragment() {
         if (uri == null){
             Snackbar.make(
                 editTextName,
-                "Error on saving hospital!!",
+                getString(R.string.hError),
                 Snackbar.LENGTH_LONG
             ).show()
             return
         }
+
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.hSaved),
+            Toast.LENGTH_LONG
+        ).show()
         navigateHospital()
     }
 
