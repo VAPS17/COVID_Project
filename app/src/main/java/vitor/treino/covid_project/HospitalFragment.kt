@@ -62,15 +62,15 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         binding.deleteHospital.setOnClickListener {
             val hospital = AppData.selectedHospital!!
             val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Delete Hospital?")
-                .setMessage("Hospital: " + hospital.name +
-                        "\nLocation: " + hospital.location +
-                        "\nAddress: " + hospital.address)
+            builder.setTitle(R.string.hTitle)
+                .setMessage(getString(R.string.hName)+ " " + hospital.name +
+                        "\n" + getString(R.string.hLocation)+ " " + hospital.location +
+                        "\n" + getString(R.string.hAddress) + " " + hospital.address)
                 .setCancelable(false)
-                .setPositiveButton("Yes") { _ ,_ ->
+                .setPositiveButton(R.string.yes) { _, _ ->
                     deleteHospital()
                 }
-                .setNegativeButton("No") { dialog, _ ->
+                .setNegativeButton(R.string.no) { dialog, _ ->
                     dialog.dismiss()
                 }
             val alert = builder.create()
@@ -132,22 +132,22 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         adapterHospital!!.cursor = null
     }
 
-    private fun reload() {
-        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
-        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
-    }
-
-    fun navigateStaff(){
-        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
-        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
-    }
-
     fun optionMenuProcessing(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_staff -> navigateStaff()
             else -> return false
         }
         return true
+    }
+
+    private fun navigateStaff(){
+        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
+    }
+
+    private fun reload() {
+        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
     }
 
     companion object {

@@ -24,4 +24,10 @@
     <string name="hErrorI">Error on saving hospital!!</string>
     <string name="hErrorD">Error to delete Hospital!!</string>
     <string name="hDeleted">Hospital deleted.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hTitle">Delete Hospital?</string>
+    <string name="hName">\Hospital:\</string>
+    <string name="hLocation">\Location:\</string>
+    <string name="hAddress">\Address:\</string>
 </resources>
