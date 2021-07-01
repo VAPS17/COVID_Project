@@ -117,7 +117,7 @@ class ContentProviderCovid: ContentProvider() {
         val bd = dbHelper!!.writableDatabase
 
         return when (getUriMatcher().match(uri)) {
-            URI_STAFF_SPECIFIC -> StaffTable(bd).update(
+            URI_HOSPITAL_SPECIFIC -> HospitalTable(bd).update(
                 values!!,
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!)

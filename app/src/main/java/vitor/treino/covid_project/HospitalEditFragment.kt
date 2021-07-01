@@ -1,6 +1,7 @@
 package vitor.treino.covid_project
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -53,7 +54,13 @@ class HospitalEditFragment : Fragment() {
         editTextLocation.addTextChangedListener(confirmHospitalDataWatcher)
         editTextAddress.addTextChangedListener(confirmHospitalDataWatcher)
 
+        editTextName.setText(AppData.selectedHospital!!.name)
+        editTextLocation.setText(AppData.selectedHospital!!.location)
+        editTextAddress.setText(AppData.selectedHospital!!.address)
+
+
         _binding?.editHospital?.setOnClickListener{
+            editHospital()
             it.hideKeyboard()
         }
 
@@ -61,6 +68,46 @@ class HospitalEditFragment : Fragment() {
             navigateHospital()
         }
 
+    }
+
+    private fun editHospital() {
+        val name = editTextName.text.toString()
+        val location = editTextLocation.text.toString()
+        val address = editTextAddress.text.toString()
+        val hospital = AppData.selectedHospital!!
+
+        hospital.name = name
+        hospital.location = location
+        hospital.address = address
+
+        val uriHospital = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_HOSPITAL,
+            hospital.id.toString()
+        )
+
+        val register = activity?.contentResolver?.update(
+            uriHospital,
+            hospital.toContentValues(),
+            null,
+            null
+        )
+
+        if (register != 1) {
+            Toast.makeText(
+                requireContext(),
+                R.string.hErrorE,
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        Toast.makeText(
+            requireContext(),
+            R.string.hEdit,
+            Toast.LENGTH_LONG
+        ).show()
+
+        navigateHospital()
     }
 
     private fun navigateHospital(){

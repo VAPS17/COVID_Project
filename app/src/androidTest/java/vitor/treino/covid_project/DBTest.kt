@@ -90,7 +90,7 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "Mateus", location = "Porto", address = "?", state = "?", infected = 456, recovered = 654)
+        val hospital = HospitalData(name = "Mateus", location = "Porto", address = "teste", state = "", infected = 456, recovered = 654)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         hospital.address = "Avenida YYY"
