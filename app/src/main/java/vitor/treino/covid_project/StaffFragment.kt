@@ -25,7 +25,7 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         savedInstanceState: Bundle?
     ): View? {
 
-        //AppData.hospitalFragment = this
+        //AppData.fragment = this
 
         _binding = FragmentStaffBinding.inflate(inflater, container, false)
         return binding.root

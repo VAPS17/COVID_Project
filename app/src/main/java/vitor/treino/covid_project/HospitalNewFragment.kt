@@ -33,7 +33,7 @@ class HospitalNewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        AppData.hospitalNewFragment = this
+        AppData.fragment = this
         (activity as MainActivity).supportActionBar?.hide()
 
         _binding = FragmentHospitalNewBinding.inflate(inflater, container, false)
@@ -52,7 +52,7 @@ class HospitalNewFragment : Fragment() {
         editTextAddress.addTextChangedListener(confirmHospitalDataWatcher)
 
         _binding?.addHospital?.setOnClickListener{
-            save()
+            saveHospital()
         }
 
         _binding?.cancelHospital?.setOnClickListener {
@@ -65,7 +65,7 @@ class HospitalNewFragment : Fragment() {
         findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
     }
 
-    private fun save() {
+    private fun saveHospital() {
         val name = editTextName.text.toString()
         val location = editTextLocation.text.toString()
         val address = editTextAddress.text.toString()
@@ -80,7 +80,7 @@ class HospitalNewFragment : Fragment() {
         if (uri == null){
             Snackbar.make(
                 editTextName,
-                getString(R.string.hError),
+                R.string.hErrorI,
                 Snackbar.LENGTH_LONG
             ).show()
             return
@@ -88,7 +88,7 @@ class HospitalNewFragment : Fragment() {
 
         Toast.makeText(
             requireContext(),
-            getString(R.string.hSaved),
+            R.string.hSaved,
             Toast.LENGTH_LONG
         ).show()
         navigateHospital()

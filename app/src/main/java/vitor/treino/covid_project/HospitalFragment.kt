@@ -2,13 +2,14 @@ package vitor.treino.covid_project
 
 import android.app.AlertDialog
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -34,7 +35,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         savedInstanceState: Bundle?
     ): View? {
 
-        AppData.hospitalFragment = this
+        AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
 
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
@@ -59,14 +60,17 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
 
         binding.deleteHospital.setOnClickListener {
+            val hospital = AppData.selectedHospital!!
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Are you sure you want to Delete?")
+            builder.setTitle("Delete Hospital?")
+                .setMessage("Hospital: " + hospital.name +
+                        "\nLocation: " + hospital.location +
+                        "\nAddress: " + hospital.address)
                 .setCancelable(false)
-                .setPositiveButton("Yes") { _, _ ->
-                    navigateStaff()
+                .setPositiveButton("Yes") { _ ,_ ->
+                    deleteHospital()
                 }
                 .setNegativeButton("No") { dialog, _ ->
-                    // Dismiss the dialog
                     dialog.dismiss()
                 }
             val alert = builder.create()
@@ -78,6 +82,36 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun deleteHospital() {
+        val uriHospital = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_HOSPITAL,
+            AppData.selectedHospital!!.id.toString()
+        )
+
+        val register = activity?.contentResolver?.delete(
+            uriHospital,
+            null,
+            null
+        )
+
+        if (register != 1) {
+            Toast.makeText(
+                requireContext(),
+                R.string.hErrorD,
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        Toast.makeText(
+            requireContext(),
+            R.string.hDeleted,
+            Toast.LENGTH_LONG
+        ).show()
+
+        reload()
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
@@ -98,8 +132,14 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         adapterHospital!!.cursor = null
     }
 
+    private fun reload() {
+        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
+    }
+
     fun navigateStaff(){
         findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
     }
 
     fun optionMenuProcessing(item: MenuItem): Boolean {

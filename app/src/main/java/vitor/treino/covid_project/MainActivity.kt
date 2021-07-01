@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 */
-
-
         AppData.activity = this
     }
 
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> {
-                if (AppData.hospitalFragment.optionMenuProcessing(item)) {
+                if ((AppData.fragment as HospitalFragment).optionMenuProcessing(item)) {
                     return true
                 } else {
                     return super.onOptionsItemSelected(item)

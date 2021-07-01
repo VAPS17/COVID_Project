@@ -1,14 +1,11 @@
 package vitor.treino.covid_project
 
-import android.annotation.SuppressLint
+import androidx.fragment.app.Fragment
 
 class AppData {
     companion object {
         lateinit var activity: MainActivity
-        lateinit var hospitalFragment: HospitalFragment
-        @SuppressLint("StaticFieldLeak")
-        lateinit var hospitalNewFragment: HospitalNewFragment
-        lateinit var staffFragment: StaffFragment
+        lateinit var fragment: Fragment
         var selectedHospital : HospitalData? = null
     }
 }
