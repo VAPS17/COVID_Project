@@ -3,38 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HospitalFragment">
+    app:startDestination="@id/hospitalFragment">
 
     <fragment
-        android:id="@+id/HospitalFragment"
+        android:id="@+id/hospitalFragment"
         android:name="vitor.treino.covid_project.HospitalFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_hospital">
 
         <action
-            android:id="@+id/action_HospitalFragment_to_NovoHospitalFragment"
-            app:destination="@id/NovoHospitalFragment" />
+            android:id="@+id/action_hospitalFragment_to_hospitalEditFragment"
+            app:destination="@id/hospitalEditFragment" />
         <action
-            android:id="@+id/action_HospitalFragment_to_StaffFragment"
-            app:destination="@id/StaffFragment" />
+            android:id="@+id/action_hospitalFragment_to_novoHospitalFragment"
+            app:destination="@id/novoHospitalFragment" />
+        <action
+            android:id="@+id/action_hospitalFragment_to_staffFragment"
+            app:destination="@id/staffFragment" />
     </fragment>
     <fragment
-        android:id="@+id/NovoHospitalFragment"
+        android:id="@+id/novoHospitalFragment"
         android:name="vitor.treino.covid_project.HospitalNewFragment"
-        android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_hospital_new">
-
         <action
-            android:id="@+id/action_NovoHospitalFragment_to_HospitalFragment"
-            app:destination="@id/HospitalFragment" />
+            android:id="@+id/action_novoHospitalFragment_to_hospitalFragment"
+            app:destination="@id/hospitalFragment" />
     </fragment>
     <fragment
-        android:id="@+id/StaffFragment"
+        android:id="@+id/staffFragment"
         android:name="vitor.treino.covid_project.StaffFragment"
         android:label="@string/third_fragment_label"
-        tools:layout="@layout/fragment_staff" >
+        tools:layout="@layout/fragment_staff">
         <action
-            android:id="@+id/action_StaffFragment_to_HospitalFragment"
-            app:destination="@id/HospitalFragment" />
+            android:id="@+id/action_staffFragment_to_hospitalFragment"
+            app:destination="@id/hospitalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hospitalEditFragment"
+        android:name="vitor.treino.covid_project.HospitalEditFragment"
+        tools:layout="@layout/fragment_hospital_edit">
+        <action
+            android:id="@+id/action_hospitalEditFragment_to_hospitalFragment"
+            app:destination="@id/hospitalFragment" />
     </fragment>
 </navigation>

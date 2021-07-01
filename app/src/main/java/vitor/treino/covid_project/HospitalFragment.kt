@@ -56,7 +56,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
 
         binding.newHospital.setOnClickListener {
-            findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+            findNavController().navigate(R.id.action_hospitalFragment_to_novoHospitalFragment)
         }
 
         binding.deleteHospital.setOnClickListener {
@@ -75,6 +75,10 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
                 }
             val alert = builder.create()
             alert.show()
+        }
+
+        binding.editHospital.setOnClickListener {
+            findNavController().navigate(R.id.action_hospitalFragment_to_hospitalEditFragment)
         }
 
     }
@@ -141,13 +145,13 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun navigateStaff(){
-        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
-        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
+        //findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+        //findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
     }
 
     private fun reload() {
-        findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
-        findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
+        findNavController().navigate(R.id.action_hospitalFragment_to_novoHospitalFragment)
+        findNavController().navigate(R.id.action_novoHospitalFragment_to_hospitalFragment)
     }
 
     companion object {

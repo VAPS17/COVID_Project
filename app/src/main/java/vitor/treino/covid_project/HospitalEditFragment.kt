@@ -13,14 +13,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import vitor.treino.covid_project.databinding.FragmentHospitalNewBinding
+import vitor.treino.covid_project.databinding.FragmentHospitalEditBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class HospitalNewFragment : Fragment() {
+class HospitalEditFragment : Fragment() {
 
-    private var _binding: FragmentHospitalNewBinding? = null
+    private var _binding: FragmentHospitalEditBinding? = null
 
     private lateinit var editTextName: EditText
     private lateinit var editTextLocation: EditText
@@ -38,7 +38,7 @@ class HospitalNewFragment : Fragment() {
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.hide()
 
-        _binding = FragmentHospitalNewBinding.inflate(inflater, container, false)
+        _binding = FragmentHospitalEditBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,8 +53,7 @@ class HospitalNewFragment : Fragment() {
         editTextLocation.addTextChangedListener(confirmHospitalDataWatcher)
         editTextAddress.addTextChangedListener(confirmHospitalDataWatcher)
 
-        _binding?.addHospital?.setOnClickListener{
-            saveHospital()
+        _binding?.editHospital?.setOnClickListener{
             it.hideKeyboard()
         }
 
@@ -65,36 +64,7 @@ class HospitalNewFragment : Fragment() {
     }
 
     private fun navigateHospital(){
-        findNavController().navigate(R.id.action_novoHospitalFragment_to_hospitalFragment)
-    }
-
-    private fun saveHospital() {
-        val name = editTextName.text.toString()
-        val location = editTextLocation.text.toString()
-        val address = editTextAddress.text.toString()
-
-        val hospital = HospitalData(name = name, location = location, address = address, state = "", infected = 0, recovered = 0)
-
-        val uri = activity?.contentResolver?.insert(
-            ContentProviderCovid.ENDERECO_HOSPITAL,
-            hospital.toContentValues()
-        )
-
-        if (uri == null){
-            Snackbar.make(
-                editTextName,
-                R.string.hErrorI,
-                Snackbar.LENGTH_LONG
-            ).show()
-            return
-        }
-
-        Toast.makeText(
-            requireContext(),
-            R.string.hSaved,
-            Toast.LENGTH_LONG
-        ).show()
-        navigateHospital()
+        findNavController().navigate(R.id.action_hospitalEditFragment_to_hospitalFragment)
     }
 
     override fun onDestroyView() {
@@ -109,7 +79,7 @@ class HospitalNewFragment : Fragment() {
             val locationInput: String = editTextLocation.text.toString().trim()
             val addressInput: String = editTextAddress.text.toString().trim()
 
-            _binding?.addHospital?.isEnabled = nameInput.isNotEmpty() && locationInput.isNotEmpty() && addressInput.isNotEmpty();
+            _binding?.editHospital?.isEnabled = nameInput.isNotEmpty() && locationInput.isNotEmpty() && addressInput.isNotEmpty();
         }
         override fun afterTextChanged(s: Editable) {}
     }

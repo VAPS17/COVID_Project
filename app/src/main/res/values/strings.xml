@@ -3,10 +3,7 @@
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Hospitals</string>
-    <string name="second_fragment_label"> </string>
     <string name="third_fragment_label">Staff</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="add_a_new_hospital">Add a new Hospital</string>
     <string name="hospital_name">Hospital name</string>
@@ -14,7 +11,7 @@
     <string name="address">Address</string>
     <string name="staff">Staff</string>
     <string name="patient">Patient</string>
-    <string name="edit_hosptital">Edit Hosptital</string>
+    <string name="edit_hospital">Edit Hospital</string>
     <string name="delete_hospital">Delete Hospital</string>
     <string name="add_a_new_staff">Add a new Staff</string>
     <string name="delete_staff">Delete Staff</string>
@@ -27,7 +24,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="hTitle">Delete Hospital?</string>
-    <string name="hName">\Hospital:\</string>
-    <string name="hLocation">\Location:\</string>
-    <string name="hAddress">\Address:\</string>
+    <string name="hName">Hospital:</string>
+    <string name="hLocation">Location:</string>
+    <string name="hAddress">Address:</string>
+    <string name="edit_hospital_data">Edit Hospital Data</string>
 </resources>
