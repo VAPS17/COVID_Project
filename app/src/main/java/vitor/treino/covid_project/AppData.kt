@@ -7,5 +7,6 @@ class AppData {
         lateinit var activity: MainActivity
         lateinit var fragment: Fragment
         var selectedHospital : HospitalData? = null
+        var selectedStaff : StaffData? = null
     }
 }

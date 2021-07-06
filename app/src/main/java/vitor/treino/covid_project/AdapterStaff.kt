@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterHospital.ViewHolderHospital>() {
+class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterStaff.ViewHolderStaff>() {
     var cursor: Cursor? = null
         set(value) {
             field = value
@@ -16,11 +16,9 @@ class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterHo
 
     class ViewHolderStaff(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val textViewStaffName = itemView.findViewById<TextView>(R.id.textViewStaffName)
-        private val textViewStaffIdentification =
-            itemView.findViewById<TextView>(R.id.textViewStaffIdentification)
+        private val textViewStaffIdentification = itemView.findViewById<TextView>(R.id.textViewStaffIdentification)
         private val textViewStaffPhone = itemView.findViewById<TextView>(R.id.textViewStaffPhone)
-        private val textViewProfessionName =
-            itemView.findViewById<TextView>(R.id.textViewProfessionName)
+        private val textViewProfessionName = itemView.findViewById<TextView>(R.id.textViewProfessionName)
 
         private lateinit var staff: StaffData
 
@@ -28,7 +26,7 @@ class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterHo
             itemView.setOnClickListener(this)
         }
 
-        fun updateStaff(hospital: StaffData) {
+        fun updateStaff(staff: StaffData) {
             this.staff = staff
 
             textViewStaffName.text = staff.name
@@ -38,23 +36,42 @@ class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterHo
         }
 
         override fun onClick(v: View?) {
-            //AdapterHospital.ViewHolderHospital.selected?.desSelect()
-            // select()
+            selected?.desSelect()
+            select()
+        }
+
+        @SuppressLint("ResourceAsColor")
+        private fun select(){
+            selected = this
+            itemView.setBackgroundColor(R.color.selected)
+            AppData.selectedStaff = staff
+            AppData.activity.updateEditDelete(true)
+        }
+
+        @SuppressLint("ResourceAsColor")
+        private fun desSelect(){
+            selected = null
+            itemView.setBackgroundColor(android.R.color.white)
+        }
+
+        companion object{
+            @SuppressLint("StaticFieldLeak")
+            var selected : ViewHolderStaff? = null
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AdapterHospital.ViewHolderHospital {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderStaff {
+        val itemStaff = fragment.layoutInflater.inflate(R.layout.item_staff, parent, false)
+
+        return ViewHolderStaff(itemStaff)
     }
 
-    override fun onBindViewHolder(holder: AdapterHospital.ViewHolderHospital, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: ViewHolderStaff, position: Int) {
+        cursor!!.moveToPosition(position)
+        holder.updateStaff(StaffData.fromCursor(cursor!!))
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return cursor?.count ?: 0
     }
 }
