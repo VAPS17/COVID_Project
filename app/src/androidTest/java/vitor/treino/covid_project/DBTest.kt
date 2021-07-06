@@ -80,7 +80,7 @@ class DBTest {
 
     @Before
     fun eraseDB() {
-        getAppContext().deleteDatabase(DBHelper.DB_Name)
+        //getAppContext().deleteDatabase(DBHelper.DB_Name)
     }
 
     @Test

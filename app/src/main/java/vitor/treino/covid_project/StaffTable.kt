@@ -80,7 +80,7 @@ class  StaffTable(db: SQLiteDatabase){
         const val FIELD_NAME = "name"
         const val FIELD_ID_HOSPITAL = "id_hospital"
         const val FIELD_ID_PROFESSION = "id_profession"
-        const val FIELD_EXTERN_PROFESSION_NAME = "name_profession"
+        const val FIELD_EXTERN_PROFESSION_NAME = "p_name_profession"
 
         val TODAS_COLUNAS = arrayOf(BaseColumns._ID,
             FIELD_IDENTIFICATION,

@@ -45,7 +45,7 @@ class AdapterStaff(val fragment: StaffFragment) : RecyclerView.Adapter<AdapterSt
             selected = this
             itemView.setBackgroundColor(R.color.selected)
             AppData.selectedStaff = staff
-            AppData.activity.updateEditDelete(true)
+            AppData.activity.updateEditDeleteStaff(true)
         }
 
         @SuppressLint("ResourceAsColor")

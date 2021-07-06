@@ -68,16 +68,29 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    fun updateEditDelete(showEditDelete: Boolean){
+    fun updateEditDeleteHospital(showEditDelete: Boolean){
         val editHospital = findViewById<FloatingActionButton>(R.id.editHospital)
         val deleteHospital = findViewById<FloatingActionButton>(R.id.deleteHospital)
 
-        if (showEditDelete){
+        if (showEditDelete) {
             editHospital.show()
             deleteHospital.show()
         } else {
             editHospital.hide()
             deleteHospital.hide()
+        }
+    }
+
+    fun updateEditDeleteStaff(showEditDelete: Boolean){
+        val editStaff = findViewById<FloatingActionButton>(R.id.editStaff)
+        val deleteStaff = findViewById<FloatingActionButton>(R.id.deleteStaff)
+
+        if (showEditDelete) {
+            editStaff.show()
+            deleteStaff.show()
+        } else {
+            editStaff.hide()
+            deleteStaff.hide()
         }
     }
 }

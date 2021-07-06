@@ -37,7 +37,7 @@ class ProfessionTable(db:SQLiteDatabase) {
 
     companion object{
         const val TABLE_NAME = "profession"
-        const val FIELD_NAME = "name"
+        const val FIELD_NAME = "p_name"
 
         val TODAS_COLUNAS = arrayOf(BaseColumns._ID, FIELD_NAME)
     }
