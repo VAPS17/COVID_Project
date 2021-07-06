@@ -30,4 +30,8 @@
     <string name="edit_hospital_data">Edit Hospital Data</string>
     <string name="hErrorE">Error to edit Hospital!!</string>
     <string name="hEdit">Hospital edited.</string>
+    <string name="staff_photo">Staff Photo</string>
+    <string name="identification">Identification:</string>
+    <string name="phone">Phone:</string>
+    <string name="profession">Profession:</string>
 </resources>
