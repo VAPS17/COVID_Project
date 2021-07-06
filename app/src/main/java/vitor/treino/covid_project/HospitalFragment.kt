@@ -56,7 +56,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
 
         binding.newHospital.setOnClickListener {
-            findNavController().navigate(R.id.action_hospitalFragment_to_novoHospitalFragment)
+            findNavController().navigate(R.id.action_hospitalFragment_to_hospitalNewFragment)
         }
 
         binding.deleteHospital.setOnClickListener {
@@ -153,8 +153,8 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun reload() {
-        findNavController().navigate(R.id.action_hospitalFragment_to_novoHospitalFragment)
-        findNavController().navigate(R.id.action_novoHospitalFragment_to_hospitalFragment)
+        findNavController().navigate(R.id.action_hospitalFragment_to_hospitalNewFragment)
+        findNavController().navigate(R.id.action_hospitalNewFragment_to_hospitalFragment)
     }
 
     companion object {

@@ -62,7 +62,7 @@ class HospitalNewFragment : Fragment() {
     }
 
     private fun navigateHospital(){
-        findNavController().navigate(R.id.action_novoHospitalFragment_to_hospitalFragment)
+        findNavController().navigate(R.id.action_hospitalNewFragment_to_hospitalFragment)
     }
 
     private fun saveHospital() {

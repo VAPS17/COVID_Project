@@ -15,18 +15,18 @@
             android:id="@+id/action_hospitalFragment_to_hospitalEditFragment"
             app:destination="@id/hospitalEditFragment" />
         <action
-            android:id="@+id/action_hospitalFragment_to_novoHospitalFragment"
-            app:destination="@id/novoHospitalFragment" />
-        <action
             android:id="@+id/action_hospitalFragment_to_staffFragment"
             app:destination="@id/staffFragment" />
+        <action
+            android:id="@+id/action_hospitalFragment_to_hospitalNewFragment"
+            app:destination="@id/hospitalNewFragment" />
     </fragment>
     <fragment
-        android:id="@+id/novoHospitalFragment"
+        android:id="@+id/hospitalNewFragment"
         android:name="vitor.treino.covid_project.HospitalNewFragment"
         tools:layout="@layout/fragment_hospital_new">
         <action
-            android:id="@+id/action_novoHospitalFragment_to_hospitalFragment"
+            android:id="@+id/action_hospitalNewFragment_to_hospitalFragment"
             app:destination="@id/hospitalFragment" />
     </fragment>
     <fragment
@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_staffFragment_to_hospitalFragment"
             app:destination="@id/hospitalFragment" />
+        <action
+            android:id="@+id/action_staffFragment_to_staffNewFragment"
+            app:destination="@id/staffNewFragment" />
     </fragment>
     <fragment
         android:id="@+id/hospitalEditFragment"
@@ -45,5 +48,14 @@
         <action
             android:id="@+id/action_hospitalEditFragment_to_hospitalFragment"
             app:destination="@id/hospitalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffNewFragment"
+        android:name="vitor.treino.covid_project.StaffNewFragment"
+        android:label="fragment_staff_new"
+        tools:layout="@layout/fragment_staff_new" >
+        <action
+            android:id="@+id/action_staffNewFragment_to_staffFragment"
+            app:destination="@id/staffFragment" />
     </fragment>
 </navigation>

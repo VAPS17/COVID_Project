@@ -50,7 +50,7 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
 
         binding.newStaff.setOnClickListener {
-            //findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
+            findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
         }
     }
 
