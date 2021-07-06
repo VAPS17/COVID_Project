@@ -6,14 +6,13 @@ import android.provider.BaseColumns
 
 data class StaffData(var id: Long = -1, var identifcation: Long, var phone: Long, var name: String, var idHospital: Long) {
     fun toContentValues(): ContentValues {
-        val values = ContentValues().apply {
+
+        return ContentValues().apply {
             put(StaffTable.FIELD_IDENTIFICATION, identifcation)
             put(StaffTable.FIELD_PHONE, phone)
             put(StaffTable.FIELD_NAME, name)
             put(StaffTable.FIELD_ID_HOSPITAL, idHospital)
         }
-
-        return values
     }
 
     companion object {

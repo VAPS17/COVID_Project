@@ -10,6 +10,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_Name, null, DB_
         if (db != null) {
             HospitalTable(db).create()
             StaffTable(db).create()
+            ProfessionTable(db).create()
         }
     }
 

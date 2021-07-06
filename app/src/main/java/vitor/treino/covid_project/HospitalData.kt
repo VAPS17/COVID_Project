@@ -6,7 +6,8 @@ import android.provider.BaseColumns
 
 data class HospitalData(var id: Long = -1, var name: String, var location: String, var address: String, var state: String, var infected: Long, var recovered: Long) {
     fun toContentValues(): ContentValues {
-        val values = ContentValues().apply {
+
+        return ContentValues().apply {
             put(HospitalTable.FIELD_NAME, name)
             put(HospitalTable.FIELD_LOCATION, location)
             put(HospitalTable.FIELD_ADDRESS, address)
@@ -14,8 +15,6 @@ data class HospitalData(var id: Long = -1, var name: String, var location: Strin
             put(HospitalTable.FIELD_INFECTED, infected)
             put(HospitalTable.FIELD_RECOVERED, recovered)
         }
-
-        return values
     }
 
     companion object {
