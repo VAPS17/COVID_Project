@@ -145,8 +145,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun navigateStaff(){
-        //findNavController().navigate(R.id.action_HospitalFragment_to_NovoHospitalFragment)
-        //findNavController().navigate(R.id.action_NovoHospitalFragment_to_HospitalFragment)
+        findNavController().navigate(R.id.action_hospitalFragment_to_staffFragment)
     }
 
     private fun reload() {
