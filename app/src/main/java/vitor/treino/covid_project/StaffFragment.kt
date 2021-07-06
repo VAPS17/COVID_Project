@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
@@ -27,6 +28,7 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
+        (activity as MainActivity).currentMenu = R.menu.menu_staff
 
         _binding = FragmentStaffBinding.inflate(inflater, container, false)
         return binding.root
@@ -70,6 +72,18 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
         adapterStaff!!.cursor = null
+    }
+
+    fun optionMenuProcessingS(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_hospital -> navigateHospital()
+            else -> return false
+        }
+        return true
+    }
+
+    private fun navigateHospital(){
+        findNavController().navigate(R.id.action_staffFragment_to_hospitalFragment)
     }
 
     companion object {

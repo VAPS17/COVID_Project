@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import vitor.treino.covid_project.databinding.ActivityMainBinding
 
@@ -16,6 +17,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var menu: Menu
+
+    var currentMenu = R.menu.menu_hospital
+        set(value){
+            field = value
+            invalidateOptionsMenu()
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,36 +36,29 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-/*
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-*/
+
         AppData.activity = this
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_hospital, menu)
+        menuInflater.inflate(currentMenu, menu)
         this.menu = menu
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> {
-                if ((AppData.fragment as HospitalFragment).optionMenuProcessing(item)) {
-                    return true
-                } else {
-                    return super.onOptionsItemSelected(item)
-                }
+        val optionProcessed = when (item.itemId) {
+            R.id.action_settings -> {
+                Toast.makeText(this, "COVID V.1.0", Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> when (currentMenu){
+                R.menu.menu_hospital -> (AppData.fragment as HospitalFragment).optionMenuProcessingH(item)
+                R.menu.menu_staff -> (AppData.fragment as StaffFragment).optionMenuProcessingS(item)
+                else -> false
             }
         }
+        return if(optionProcessed) true else super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

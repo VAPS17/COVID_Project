@@ -24,10 +24,6 @@ import vitor.treino.covid_project.databinding.FragmentHospitalBinding
 class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentHospitalBinding? = null
     private var adapterHospital : AdapterHospital? = null
-
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,6 +33,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
+        (activity as MainActivity).currentMenu = R.menu.menu_hospital
 
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         return binding.root
@@ -136,7 +133,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         adapterHospital!!.cursor = null
     }
 
-    fun optionMenuProcessing(item: MenuItem): Boolean {
+    fun optionMenuProcessingH(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_staff -> navigateStaff()
             else -> return false

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_hospital"
-        android:icon="@drawable/Home"
+        android:icon="@drawable/home"
         android:title="@string/first_fragment_label"
         app:showAsAction="ifRoom" />
 </menu>
