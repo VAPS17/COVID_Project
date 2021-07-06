@@ -8,8 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<AdapterHospital.ViewHolderHospital>() {
-    public var cursor: Cursor? = null
-        get() = field
+    var cursor: Cursor? = null
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -26,6 +25,7 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
             itemView.setOnClickListener(this)
         }
 
+        @SuppressLint("SetTextI18n")
         fun updateHospital(hospital: HospitalData) {
             this.hospital = hospital
 
@@ -55,6 +55,7 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
         }
 
         companion object{
+            @SuppressLint("StaticFieldLeak")
             var selected : ViewHolderHospital? = null
         }
     }
