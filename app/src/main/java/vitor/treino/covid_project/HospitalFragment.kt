@@ -16,6 +16,7 @@ import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import vitor.treino.covid_project.databinding.FragmentHospitalBinding
 
 /**
@@ -34,6 +35,8 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
         (activity as MainActivity).currentMenu = R.menu.menu_hospital
+
+        AppData.selectedHospital = null
 
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         return binding.root
@@ -142,7 +145,11 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun navigateStaff(){
-        findNavController().navigate(R.id.action_hospitalFragment_to_staffFragment)
+        if (AppData.selectedHospital == null){
+            Toast.makeText(requireContext(), "Select an Hospital", Toast.LENGTH_LONG).show()
+        } else {
+            findNavController().navigate(R.id.action_hospitalFragment_to_staffFragment)
+        }
     }
 
     private fun reload() {

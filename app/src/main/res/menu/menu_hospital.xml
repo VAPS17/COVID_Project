@@ -4,13 +4,18 @@
     tools:context="vitor.treino.covid_project.MainActivity">
     <item
         android:id="@+id/action_staff"
-        android:title="@string/staff" />
+        android:icon="@drawable/staff"
+        android:title="@string/staff"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_patient"
-        android:title="@string/patient" />
+        android:icon="@drawable/patient"
+        android:title="@string/patient"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never|ifRoom" />
 </menu>

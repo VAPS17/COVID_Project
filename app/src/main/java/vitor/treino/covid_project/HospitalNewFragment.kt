@@ -25,9 +25,6 @@ class HospitalNewFragment : Fragment() {
     private lateinit var editTextName: EditText
     private lateinit var editTextLocation: EditText
     private lateinit var editTextAddress: EditText
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
