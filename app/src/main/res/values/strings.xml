@@ -6,9 +6,9 @@
     <string name="third_fragment_label">Staff</string>
 
     <string name="add_a_new_hospital">Add a new Hospital</string>
-    <string name="hospital_name">Hospital name</string>
-    <string name="location">Location</string>
-    <string name="address">Address</string>
+    <string name="hospital_name">Name:</string>
+    <string name="location">Location:</string>
+    <string name="address">Address:</string>
     <string name="staff">Staff</string>
     <string name="patient">Patient</string>
     <string name="edit_hospital">Edit Hospital</string>
@@ -34,4 +34,6 @@
     <string name="identification">Identification:</string>
     <string name="phone">Phone:</string>
     <string name="profession">Profession:</string>
+    <string name="insert_the_new_staff_data">Insert The New Staff Data</string>
+    <string name="staff_name">Name:</string>
 </resources>
