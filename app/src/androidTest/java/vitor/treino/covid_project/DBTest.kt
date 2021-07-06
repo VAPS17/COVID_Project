@@ -3,12 +3,12 @@ package vitor.treino.covid_project
 import android.provider.BaseColumns
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
 class DBTest {
@@ -78,7 +78,7 @@ class DBTest {
         return StaffData.fromCursor(cursor)
     }
 
-    @Before
+    @After
     fun eraseDB() {
         //getAppContext().deleteDatabase(DBHelper.DB_Name)
     }
@@ -180,14 +180,14 @@ class DBTest {
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val professionTable = ProfessionTable(db)
-        val profession = ProfessionData(name = "Doctor")
+        val profession = ProfessionData(name = "Director")
         profession.id = insertProfession(professionTable, profession)
 
 
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 12345,
-            phone = 966666666,
-            name = "Bruno",
+        val staff = StaffData(identifcation = 11111,
+            phone = 961111111,
+            name = "Pedro",
             idHospital = hospital.id,
             idProfession = profession.id,
             nameProfession = profession.name)

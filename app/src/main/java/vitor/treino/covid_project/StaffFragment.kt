@@ -18,6 +18,7 @@ import vitor.treino.covid_project.databinding.FragmentStaffBinding
 class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentStaffBinding? = null
     private var adapterStaff : AdapterStaff? = null
+    private var hospitalID : Long? = null
 
     private val binding get() = _binding!!
 
@@ -36,6 +37,8 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        hospitalID = AppData.selectedHospital!!.id
 
         val recyclerViewStaff = view.findViewById<RecyclerView>(R.id.recyclerViewStaff)
         adapterStaff = AdapterStaff(this)
@@ -61,7 +64,8 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             requireContext(),
             ContentProviderCovid.ENDERECO_STAFF,
             StaffTable.TODAS_COLUNAS,
-            null, null,
+            "${StaffTable.FIELD_ID_HOSPITAL}=$hospitalID",
+            null,
             StaffTable.FIELD_NAME
         )
     }
