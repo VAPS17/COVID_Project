@@ -16,7 +16,7 @@ import vitor.treino.covid_project.databinding.FragmentStaffBinding
 
 class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentStaffBinding? = null
-    //private var adapterHospital : AdapterHospital? = null
+    private var adapterStaff : AdapterStaff? = null
 
     private val binding get() = _binding!!
 
@@ -25,7 +25,8 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         savedInstanceState: Bundle?
     ): View? {
 
-        //AppData.fragment = this
+        AppData.fragment = this
+        (activity as MainActivity).supportActionBar?.show()
 
         _binding = FragmentStaffBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,8 +36,8 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerViewStaff = view.findViewById<RecyclerView>(R.id.recyclerViewStaff)
-        //adapterHospital = AdapterHospital(this)
-        //recyclerViewHospital.adapter = adapterHospital
+        adapterStaff = AdapterStaff(this)
+        recyclerViewStaff.adapter = adapterStaff
         recyclerViewStaff.layoutManager = LinearLayoutManager(requireContext())
 
         LoaderManager.getInstance(this)
@@ -64,14 +65,14 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-        //adapterHospital!!.cursor = data
+        adapterStaff!!.cursor = data
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        //adapterHospital!!.cursor = null
+        adapterStaff!!.cursor = null
     }
 
     companion object {
-        const val ID_LOADER_MANAGER_STAFF = 1
+        const val ID_LOADER_MANAGER_STAFF = 0
     }
 }
