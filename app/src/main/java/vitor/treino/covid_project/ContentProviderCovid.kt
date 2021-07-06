@@ -155,6 +155,12 @@ class ContentProviderCovid: ContentProvider() {
                 arrayOf(uri.lastPathSegment!!)
             )
 
+            URI_STAFF_SPECIFIC -> StaffTable(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
             else -> 0
         }
     }

@@ -22,13 +22,6 @@ class DBTest {
         return id
     }
 
-    private fun insertStaff(table: StaffTable, staff: StaffData): Long {
-        val id = table.insert(staff.toContentValues())
-        assertNotEquals(-1, id)
-
-        return id
-    }
-
     private fun insertProfession(table: ProfessionTable, profession: ProfessionData): Long{
         val id = table.insert(profession.toContentValues())
         assertNotEquals(-1,id)
@@ -36,10 +29,17 @@ class DBTest {
         return id
     }
 
+    private fun insertStaff(table: StaffTable, staff: StaffData): Long {
+        val id = table.insert(staff.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
     private fun getHospitalDB(table: HospitalTable, id: Long): HospitalData {
         val cursor = table.query(
             HospitalTable.TODAS_COLUNAS,
-            "${BaseColumns._ID}=?",
+            "${HospitalTable.TABLE_NAME}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null, null, null
         )
@@ -50,24 +50,10 @@ class DBTest {
         return HospitalData.fromCursor(cursor)
     }
 
-    private fun getStaffDB(table: StaffTable, id: Long): StaffData {
-        val cursor = table.query(
-            StaffTable.TODAS_COLUNAS,
-            "${BaseColumns._ID}=?",
-            arrayOf(id.toString()),
-            null, null, null
-        )
-
-        assertNotNull(cursor)
-        assert(cursor!!.moveToNext())
-
-        return StaffData.fromCursor(cursor)
-    }
-
     private fun getProfessionDB(table: ProfessionTable, id: Long): ProfessionData {
         val cursor = table.query(
             ProfessionTable.TODAS_COLUNAS,
-            "${BaseColumns._ID}=?",
+            "${ProfessionTable.TABLE_NAME}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null, null, null
         )
@@ -78,9 +64,23 @@ class DBTest {
         return ProfessionData.fromCursor(cursor)
     }
 
+    private fun getStaffDB(table: StaffTable, id: Long): StaffData {
+        val cursor = table.query(
+            StaffTable.TODAS_COLUNAS,
+            "${StaffTable.TABLE_NAME}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return StaffData.fromCursor(cursor)
+    }
+
     @Before
     fun eraseDB() {
-        //getAppContext().deleteDatabase(DBHelper.DB_Name)
+        getAppContext().deleteDatabase(DBHelper.DB_Name)
     }
 
     @Test
@@ -98,7 +98,12 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "FULL", infected = 123, recovered = 321)
+        val hospital = HospitalData(name = "São Pedro",
+            location = "Lisboa",
+            address = "Avenida XXX",
+            state = "FULL",
+            infected = 123,
+            recovered = 321)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         assertEquals(hospital, getHospitalDB(hospitalTable, hospital.id))
@@ -111,7 +116,12 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "Mateus", location = "Porto", address = "teste", state = "", infected = 456, recovered = 654)
+        val hospital = HospitalData(name = "Mateus",
+            location = "Porto",
+            address = "teste",
+            state = "",
+            infected = 456,
+            recovered = 654)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         hospital.address = "Avenida YYY"
@@ -135,7 +145,12 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "S. Antonio", location = "Mafra", address = "Rua Grande", state = "FULL", infected = 789, recovered = 987)
+        val hospital = HospitalData(name = "S. Antonio",
+            location = "Mafra",
+            address = "Rua Grande",
+            state = "FULL",
+            infected = 789,
+            recovered = 987)
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val deletedData = hospitalTable.delete(
@@ -154,12 +169,28 @@ class DBTest {
     fun testStaffInsert() {
         val db = getDbHelper().writableDatabase
 
+
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "São Pedro", location = "Lisboa", address = "Avenida XXX", state = "FULL", infected = 123, recovered = 321)
+        val hospital = HospitalData(name = "teste",
+            location = "teste",
+            address = "teste",
+            state = "FULL",
+            infected = 123,
+            recovered = 321)
         hospital.id = insertHospital(hospitalTable, hospital)
 
+        val professionTable = ProfessionTable(db)
+        val profession = ProfessionData(name = "Doctor")
+        profession.id = insertProfession(professionTable, profession)
+
+
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 12345, phone = 966666666, name = "Bruno", idHospital = hospital.id)
+        val staff = StaffData(identifcation = 12345,
+            phone = 966666666,
+            name = "Bruno",
+            idHospital = hospital.id,
+            idProfession = profession.id,
+            nameProfession = profession.name)
         staff.id = insertStaff(staffTable, staff)
 
         assertEquals(staff, getStaffDB(staffTable, staff.id))
@@ -172,11 +203,27 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "Mateus", location = "Porto", address = "?", state = "?", infected = 456, recovered = 654)
+        val hospital = HospitalData(name = "Mateus",
+            location = "Porto",
+            address = "?",
+            state = "?",
+            infected = 456,
+            recovered = 654)
         hospital.id = insertHospital(hospitalTable, hospital)
 
+        val professionTable = ProfessionTable(db)
+        val profession = ProfessionData(name = "Teste3")
+        profession.id = insertProfession(professionTable, profession)
+
+
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 12, phone = 967777777, name = "?", idHospital = hospital.id)
+        val staff = StaffData(identifcation = 12,
+            phone = 967777777,
+            name = "?",
+            idHospital = hospital.id,
+            idProfession = profession.id,
+            nameProfession = profession.name
+        )
         staff.id = insertStaff(staffTable, staff)
 
         staff.identifcation = 67890
@@ -200,11 +247,27 @@ class DBTest {
         val db = getDbHelper().writableDatabase
 
         val hospitalTable = HospitalTable(db)
-        val hospital = HospitalData(name = "S. Antonio", location = "Mafra", address = "Rua Grande", state = "FULL", infected = 789, recovered = 987)
+        val hospital = HospitalData(name = "S. Antonio",
+            location = "Mafra",
+            address = "Rua Grande",
+            state = "FULL",
+            infected = 789,
+            recovered = 987)
         hospital.id = insertHospital(hospitalTable, hospital)
 
+        val professionTable = ProfessionTable(db)
+        val profession = ProfessionData(name = "Teste3")
+        profession.id = insertProfession(professionTable, profession)
+
+
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 13579, phone = 968888888, name = "Carlos", idHospital = hospital.id)
+        val staff = StaffData(identifcation = 13579,
+            phone = 968888888,
+            name = "Carlos",
+            idHospital = hospital.id,
+            idProfession = profession.id,
+            nameProfession = profession.name
+        )
         staff.id = insertStaff(staffTable, staff)
 
         val deletedData = staffTable.delete(
