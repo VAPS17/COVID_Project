@@ -57,6 +57,7 @@ class HospitalNewFragment : Fragment() {
 
         _binding?.cancelHospital?.setOnClickListener {
             navigateHospital()
+            it.hideKeyboard()
         }
 
     }
@@ -111,13 +112,15 @@ class HospitalNewFragment : Fragment() {
             val locationInput: String = editTextLocation.text.toString().trim()
             val addressInput: String = editTextAddress.text.toString().trim()
 
-            _binding?.addHospital?.isEnabled = nameInput.isNotEmpty() && locationInput.isNotEmpty() && addressInput.isNotEmpty();
+            _binding?.addHospital?.isEnabled = nameInput.isNotEmpty() &&
+                    locationInput.isNotEmpty() && addressInput.isNotEmpty();
         }
         override fun afterTextChanged(s: Editable) {}
     }
 
     private fun View.hideKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }

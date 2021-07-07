@@ -1,8 +1,10 @@
 package vitor.treino.covid_project
 
 
+import android.content.Context
 import android.database.Cursor
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,8 @@ import android.widget.EditText
 import android.widget.SimpleCursorAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
@@ -50,15 +54,21 @@ class StaffNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         editTextPhone = view.findViewById(R.id.editTextPhone)
         spinnerProfession = view.findViewById(R.id.spinnerProfession)
 
+        editTextName.addTextChangedListener(confirmStaffDataWatcher)
+        editTextIdentification.addTextChangedListener(confirmStaffDataWatcher)
+        editTextPhone.addTextChangedListener(confirmStaffDataWatcher)
+
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_PROFESSION, null, this)
 
         binding.addStaff.setOnClickListener {
             saveStaff()
+            it.hideKeyboard()
         }
 
         binding.cancelStaff.setOnClickListener {
-            findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
+            navigateStaff()
+            it.hideKeyboard()
         }
     }
 
@@ -133,6 +143,25 @@ class StaffNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
         updateProfessionSpinner(null)
+    }
+
+    private val confirmStaffDataWatcher: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            val nameInput: String = editTextName.text.toString().trim()
+            val identificationInput: String = editTextIdentification.text.toString().trim()
+            val phoneInput: String = editTextPhone.text.toString().trim()
+
+            _binding?.addStaff?.isEnabled = nameInput.isNotEmpty() &&
+                    identificationInput.isNotEmpty() && phoneInput.isNotEmpty();
+        }
+        override fun afterTextChanged(s: Editable) {}
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     companion object {
