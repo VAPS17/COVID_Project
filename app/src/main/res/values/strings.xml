@@ -62,4 +62,6 @@
     <string name="medium">MEDIUM</string>
     <string name="high">HIGH</string>
     <string name="urgent">URGENT</string>
+    <string name="pErrorI">Error saving Patient!!</string>
+    <string name="pSaved">Patient Saved.</string>
 </resources>

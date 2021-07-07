@@ -7,12 +7,9 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.SimpleCursorAdapter
-import android.widget.Spinner
-import android.widget.Toast
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
@@ -28,7 +25,7 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     private lateinit var editTextPatientName: EditText
     private lateinit var editTextPatientIdentification: EditText
-    //private lateinit var editTextPatientPriority: EditText
+    private lateinit var radioGroupPriority: RadioGroup
     private lateinit var spinnerDisease: Spinner
 
     override fun onCreateView(
@@ -50,7 +47,7 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         editTextPatientName = view.findViewById(R.id.editTextPatientName)
         editTextPatientIdentification = view.findViewById(R.id.editTextPatientIdentification)
-
+        radioGroupPriority = view.findViewById(R.id.radioGroupPriority)
         spinnerDisease = view.findViewById(R.id.spinnerDisease)
 
         editTextPatientName.addTextChangedListener(confirmPatientDataWatcher)
@@ -58,12 +55,12 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_DISEASE, null, this)
-/*
-        binding.addStaff.setOnClickListener {
+
+        binding.addPatient.setOnClickListener {
             saveStaff()
             it.hideKeyboard()
         }
-*/
+
         binding.cancelPatient.setOnClickListener {
             navigatePatient()
             it.hideKeyboard()
@@ -89,29 +86,32 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             0
         )
     }
-/*
-    private fun saveStaff(){
-        val name = editTextName.text.toString()
-        val identification = editTextIdentification.text.toString().toLong()
-        val phone = editTextPhone.text.toString().toLong()
-        val professionId = spinnerProfession.selectedItemId
 
-        val staff = StaffData(name = name,
+    private fun saveStaff(){
+        val name = editTextPatientName.text.toString()
+        val identification = editTextPatientIdentification.text.toString().toLong()
+        val diseaseId = spinnerDisease.selectedItemId
+
+        val id = radioGroupPriority.checkedRadioButtonId
+        val radio = view?.findViewById<RadioButton>(id)?.text
+
+
+        val patient = PatientData(name = name,
             identifcation = identification,
-            phone = phone,
+            priority = radio as String,
             idHospital = hospitalID,
-            idProfession = professionId
+            idDisease = diseaseId
         )
 
         val uri = activity?.contentResolver?.insert(
-            ContentProviderCovid.ENDERECO_STAFF,
-            staff.toContentValues()
+            ContentProviderCovid.ENDERECO_PATIENT,
+            patient.toContentValues()
         )
 
         if (uri == null) {
             Snackbar.make(
-                editTextName,
-                R.string.sErrorI,
+                editTextPatientName,
+                getString(R.string.pErrorI),
                 Snackbar.LENGTH_LONG
             ).show()
             return
@@ -119,12 +119,12 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         Toast.makeText(
             requireContext(),
-            R.string.sSaved,
+            getString(R.string.pSaved),
             Toast.LENGTH_LONG
         ).show()
-        navigateStaff()
+        navigatePatient()
     }
-*/
+
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
