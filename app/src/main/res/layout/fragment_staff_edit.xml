@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_hospital_data"
+        android:text="@string/edit_staff_data"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
@@ -20,25 +20,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/cancelHospital"
+        android:id="@+id/cancelStaff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginBottom="300dp"
         android:contentDescription="@string/delete_hospital"
         android:src="@android:drawable/ic_delete"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toStartOf="@+id/editHospital" />
+        app:layout_constraintEnd_toStartOf="@+id/editStaff" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editHospital"
+        android:id="@+id/editStaff"
         android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginBottom="300dp"
         android:contentDescription="@string/add_a_new_hospital"
         android:enabled="false"
         android:src="@android:drawable/ic_menu_edit"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextLocation"
+                android:id="@+id/editTextIdentification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -75,14 +75,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/location" />
+                android:hint="@string/identification" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextAddress"
+                    android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -90,11 +90,33 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:hint="@string/address" />
+                    android:hint="@string/phone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinnerProfession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="400dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/profession"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerProfession"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

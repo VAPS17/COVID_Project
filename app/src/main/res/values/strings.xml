@@ -38,4 +38,5 @@
     <string name="staff_name">Name:</string>
     <string name="sErrorI">Error on saving staff!!</string>
     <string name="sSaved">Staff Saved</string>
+    <string name="edit_staff_data">Edit Staff Data</string>
 </resources>
