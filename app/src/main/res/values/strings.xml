@@ -42,4 +42,10 @@
     <string name="cancel_edit">Cancel Edit</string>
     <string name="sErrorE">Error on edit staff!!</string>
     <string name="sEdited">Staff Edited.</string>
+    <string name="sErrorD">Error on Staff delete!!</string>
+    <string name="sDeleted">Staff Deleted.</string>
+    <string name="empty">We have Beds</string>
+    <string name="infected">Infected:</string>
+    <string name="recovered">Recovered:</string>
+    <string name="state">State:</string>
 </resources>

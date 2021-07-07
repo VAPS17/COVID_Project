@@ -74,7 +74,7 @@ class HospitalNewFragment : Fragment() {
         val hospital = HospitalData(name = name,
             location = location,
             address = address,
-            state = "",
+            state = getString(R.string.empty),
             infected = 0,
             recovered = 0)
 

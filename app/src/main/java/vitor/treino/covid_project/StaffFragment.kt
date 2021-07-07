@@ -1,12 +1,15 @@
 package vitor.treino.covid_project
 
+import android.app.AlertDialog
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -56,12 +59,63 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         binding.editStaff.setOnClickListener{
             findNavController().navigate(R.id.action_staffFragment_to_staffEditFragment)
         }
+
+        binding.deleteStaff.setOnClickListener {
+            val staff = AppData.selectedStaff!!
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Delete Staff")
+                .setMessage("Name: " + staff.name +
+                        "\nIdentification: " + staff.identifcation +
+                        "\nPhone: " + staff.phone +
+                        "\nProfession: " + staff.nameProfession
+                )
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    deleteStaff()
+                }
+                .setNegativeButton(R.string.no) { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun deleteStaff(){
+        val uriStaff = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_STAFF,
+            AppData.selectedStaff!!.id.toString()
+        )
+
+        val register = activity?.contentResolver?.delete(
+            uriStaff,
+            null,
+            null
+        )
+
+        if (register != 1) {
+            Toast.makeText(
+                requireContext(),
+                R.string.sErrorD,
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        Toast.makeText(
+            requireContext(),
+            R.string.sDeleted,
+            Toast.LENGTH_LONG
+        ).show()
+
+        reloadStaff()
+    }
+
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
@@ -92,6 +146,11 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     private fun navigateHospital(){
         findNavController().navigate(R.id.action_staffFragment_to_hospitalFragment)
+    }
+
+    private fun reloadStaff() {
+        findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
+        findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
     }
 
     companion object {

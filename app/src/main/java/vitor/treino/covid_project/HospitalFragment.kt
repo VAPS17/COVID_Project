@@ -115,7 +115,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             Toast.LENGTH_LONG
         ).show()
 
-        reload()
+        reloadHospital()
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
@@ -152,7 +152,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
     }
 
-    private fun reload() {
+    private fun reloadHospital() {
         findNavController().navigate(R.id.action_hospitalFragment_to_hospitalNewFragment)
         findNavController().navigate(R.id.action_hospitalNewFragment_to_hospitalFragment)
     }
