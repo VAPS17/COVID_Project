@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import org.w3c.dom.Text
 
 class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<AdapterHospital.ViewHolderHospital>() {
     var cursor: Cursor? = null
@@ -18,6 +19,9 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
         private val textViewName = itemView.findViewById<TextView>(R.id.textViewName)
         private val textViewLocation = itemView.findViewById<TextView>(R.id.textViewLocation)
         private val textViewAddress = itemView.findViewById<TextView>(R.id.textViewAddress)
+        private val textViewInfected = itemView.findViewById<TextView>(R.id.textViewInfected)
+        private val textViewRecovered = itemView.findViewById<TextView>(R.id.textViewRecovered)
+        private val textViewState = itemView.findViewById<TextView>(R.id.textViewState)
 
         private lateinit var hospital: HospitalData
 
@@ -32,6 +36,9 @@ class AdapterHospital(val fragment: HospitalFragment) : RecyclerView.Adapter<Ada
             textViewName.text = hospital.name
             textViewLocation.text = hospital.location
             textViewAddress.text = " | " + hospital.address
+            textViewInfected.text = hospital.infected.toString()
+            textViewRecovered.text = hospital.recovered.toString()
+            textViewState.text = hospital.state
         }
 
         override fun onClick(v: View?) {
