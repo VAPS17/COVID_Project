@@ -48,4 +48,10 @@
     <string name="infected">Infected:</string>
     <string name="recovered">Recovered:</string>
     <string name="state">State:</string>
+    <string name="add_new_patient">Add new patient</string>
+    <string name="delete_patient">Delete patient</string>
+    <string name="edit_patient">Edit patient</string>
+    <string name="patient_photo">Patient Photo</string>
+    <string name="priority">Priority:</string>
+    <string name="disease">Disease:</string>
 </resources>
