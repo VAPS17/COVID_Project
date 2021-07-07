@@ -52,6 +52,10 @@ class StaffFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         binding.newStaff.setOnClickListener {
             findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
         }
+
+        binding.editStaff.setOnClickListener{
+            findNavController().navigate(R.id.action_staffFragment_to_staffEditFragment)
+        }
     }
 
     override fun onDestroyView() {

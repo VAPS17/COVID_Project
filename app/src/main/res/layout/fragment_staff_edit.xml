@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HospitalEditFragment">
+    tools:context=".StaffEditFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="300dp"
-        android:contentDescription="@string/delete_hospital"
+        android:contentDescription="@string/cancel_edit"
         android:src="@android:drawable/ic_delete"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="300dp"
-        android:contentDescription="@string/add_a_new_hospital"
+        android:contentDescription="@string/edit_staff"
         android:enabled="false"
         android:src="@android:drawable/ic_menu_edit"
         app:backgroundTint="@android:color/holo_green_light"

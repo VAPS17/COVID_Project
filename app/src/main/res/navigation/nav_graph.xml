@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_staffFragment_to_staffNewFragment"
             app:destination="@id/staffNewFragment" />
+        <action
+            android:id="@+id/action_staffFragment_to_staffEditFragment"
+            app:destination="@id/staffEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/hospitalEditFragment"
@@ -52,10 +55,17 @@
     <fragment
         android:id="@+id/staffNewFragment"
         android:name="vitor.treino.covid_project.StaffNewFragment"
-        android:label="fragment_staff_new"
-        tools:layout="@layout/fragment_staff_new" >
+        tools:layout="@layout/fragment_staff_new">
         <action
             android:id="@+id/action_staffNewFragment_to_staffFragment"
+            app:destination="@id/staffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffEditFragment"
+        android:name="vitor.treino.covid_project.StaffEditFragment"
+        tools:layout="@layout/fragment_staff_edit">
+        <action
+            android:id="@+id/action_staffEditFragment_to_staffFragment"
             app:destination="@id/staffFragment" />
     </fragment>
 </navigation>
