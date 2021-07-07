@@ -26,7 +26,7 @@
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="300dp"
-        android:contentDescription="@string/delete_hospital"
+        android:contentDescription="@string/delete_staff"
         android:src="@android:drawable/ic_delete"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="300dp"
-        android:contentDescription="@string/add_a_new_hospital"
+        android:contentDescription="@string/add_a_new_staff"
         android:enabled="false"
         android:src="@android:drawable/ic_menu_save"
         app:backgroundTint="@android:color/holo_green_light"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextLocation"
+                android:id="@+id/editTextIdentification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextAddress"
+                    android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -99,7 +99,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerProfession"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -117,6 +117,6 @@
         android:layout_marginBottom="8dp"
         android:text="@string/profession"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toTopOf="@+id/spinner2"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerProfession"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
