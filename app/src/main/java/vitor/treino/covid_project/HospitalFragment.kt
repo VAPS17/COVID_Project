@@ -139,6 +139,7 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     fun optionMenuProcessingH(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_staff -> navigateStaff()
+            R.id.action_patient -> navigatePatient()
             else -> return false
         }
         return true
@@ -146,9 +147,17 @@ class HospitalFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     private fun navigateStaff(){
         if (AppData.selectedHospital == null){
-            Toast.makeText(requireContext(), "Select an Hospital", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.select_hospital), Toast.LENGTH_LONG).show()
         } else {
             findNavController().navigate(R.id.action_hospitalFragment_to_staffFragment)
+        }
+    }
+
+    private fun navigatePatient(){
+        if (AppData.selectedHospital == null){
+            Toast.makeText(requireContext(), getString(R.string.select_hospital), Toast.LENGTH_LONG).show()
+        } else {
+            findNavController().navigate(R.id.action_hospitalFragment_to_patientFragment)
         }
     }
 

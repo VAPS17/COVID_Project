@@ -16,11 +16,11 @@ import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import vitor.treino.covid_project.databinding.FragmentStaffBinding
+import vitor.treino.covid_project.databinding.FragmentPatientBinding
 
 class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
-    private var _binding: FragmentStaffBinding? = null
-    private var adapterStaff : AdapterStaff? = null
+    private var _binding: FragmentPatientBinding? = null
+    private var adapterPatient : AdapterPatient? = null
     private var hospitalID : Long? = null
 
     private val binding get() = _binding!!
@@ -32,9 +32,9 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
-        (activity as MainActivity).currentMenu = R.menu.menu_staff
+        //(activity as MainActivity).currentMenu = R.menu.menu_staff
 
-        _binding = FragmentStaffBinding.inflate(inflater, container, false)
+        _binding = FragmentPatientBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,15 +43,15 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         hospitalID = AppData.selectedHospital!!.id
 
-        val recyclerViewStaff = view.findViewById<RecyclerView>(R.id.recyclerViewStaff)
-        adapterStaff = AdapterStaff(this)
-        recyclerViewStaff.adapter = adapterStaff
-        recyclerViewStaff.layoutManager = LinearLayoutManager(requireContext())
+        val recyclerViewPatient = view.findViewById<RecyclerView>(R.id.recyclerViewPatient)
+        adapterPatient = AdapterPatient(this)
+        recyclerViewPatient.adapter = adapterPatient
+        recyclerViewPatient.layoutManager = LinearLayoutManager(requireContext())
 
         LoaderManager.getInstance(this)
-            .initLoader(ID_LOADER_MANAGER_STAFF, null, this)
+            .initLoader(ID_LOADER_MANAGER_PATIENT, null, this)
 
-
+/*
         binding.newStaff.setOnClickListener {
             findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
         }
@@ -79,13 +79,15 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             val alert = builder.create()
             alert.show()
         }
+
+ */
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
+/*
     private fun deleteStaff(){
         val uriStaff = Uri.withAppendedPath(
             ContentProviderCovid.ENDERECO_STAFF,
@@ -115,27 +117,27 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         reloadStaff()
     }
-
+*/
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
-            ContentProviderCovid.ENDERECO_STAFF,
-            StaffTable.TODAS_COLUNAS,
-            "${StaffTable.FIELD_ID_HOSPITAL}=$hospitalID",
+            ContentProviderCovid.ENDERECO_PATIENT,
+            PatientTable.TODAS_COLUNAS,
+            "${PatientTable.FIELD_ID_HOSPITAL}=$hospitalID",
             null,
-            StaffTable.FIELD_NAME
+            PatientTable.FIELD_NAME
         )
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-        adapterStaff!!.cursor = data
+        adapterPatient!!.cursor = data
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        adapterStaff!!.cursor = null
+        adapterPatient!!.cursor = null
     }
-
+/*
     fun optionMenuProcessingS(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_hospital -> navigateHospital()
@@ -152,8 +154,8 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
         findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
     }
-
+*/
     companion object {
-        const val ID_LOADER_MANAGER_STAFF = 0
+        const val ID_LOADER_MANAGER_PATIENT = 0
     }
 }

@@ -92,4 +92,18 @@ class MainActivity : AppCompatActivity() {
             deleteStaff.hide()
         }
     }
+
+    fun updateEditDeletePatient(showEditDelete: Boolean) {
+        val editPatient = findViewById<FloatingActionButton>(R.id.editPatient)
+        val deletePatient = findViewById<FloatingActionButton>(R.id.deletePatient)
+
+        if (showEditDelete) {
+            editPatient.show()
+            deletePatient.show()
+        } else {
+            editPatient.hide()
+            deletePatient.hide()
+        }
+
+    }
 }

@@ -8,5 +8,6 @@ class AppData {
         lateinit var fragment: Fragment
         var selectedHospital : HospitalData? = null
         var selectedStaff : StaffData? = null
+        var selectedPatient : PatientData? = null
     }
 }

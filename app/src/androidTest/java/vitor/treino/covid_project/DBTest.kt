@@ -342,7 +342,7 @@ class DBTest {
         hospital.id = insertHospital(hospitalTable, hospital)
 
         val diseaseTable = DiseaseTable(db)
-        val disease = DiseaseData(name = "TesteD")
+        val disease = DiseaseData(name = "Teste")
         disease.id = insertDisease(diseaseTable, disease)
 
 
