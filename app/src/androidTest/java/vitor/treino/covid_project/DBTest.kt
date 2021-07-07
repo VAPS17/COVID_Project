@@ -340,20 +340,20 @@ class DBTest {
 
         val disease1 = DiseaseData(name = "COVID-19")
         disease1.id = insertDisease(diseaseTable, disease1)
-/*
-        val profession2 = ProfessionData(name = "Doctor")
-        profession2.id = insertProfession(professionTable, profession2)
 
-        val profession3 = ProfessionData(name = "Nurse")
-        profession3.id = insertProfession(professionTable, profession3)
+        val disease2 = DiseaseData(name = "SIDA")
+        disease2.id = insertDisease(diseaseTable, disease2)
 
-        val profession4 = ProfessionData(name = "Employee")
-        profession4.id = insertProfession(professionTable, profession4)
-*/
+        val disease3 = DiseaseData(name = "HEPATITE-B")
+        disease3.id = insertDisease(diseaseTable, disease3)
+
+        val disease4 = DiseaseData(name = "OUTROS")
+        disease4.id = insertDisease(diseaseTable, disease4)
+
         assertEquals(disease1, getDiseaseDB(diseaseTable, disease1.id))
-//        assertEquals(profession2, getProfessionDB(professionTable, profession2.id))
-//        assertEquals(profession3, getProfessionDB(professionTable, profession3.id))
-//        assertEquals(profession4, getProfessionDB(professionTable, profession4.id))
+        assertEquals(disease2, getDiseaseDB(diseaseTable, disease2.id))
+        assertEquals(disease3, getDiseaseDB(diseaseTable, disease3.id))
+        assertEquals(disease4, getDiseaseDB(diseaseTable, disease4.id))
 
         db.close()
     }
