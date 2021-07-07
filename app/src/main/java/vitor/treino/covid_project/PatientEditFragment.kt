@@ -10,28 +10,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.SimpleCursorAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
-import vitor.treino.covid_project.databinding.FragmentStaffEditBinding
+import vitor.treino.covid_project.databinding.FragmentPatientEditBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
-    private var _binding: FragmentStaffEditBinding? = null
+    private var _binding: FragmentPatientEditBinding? = null
 
-    private lateinit var editTextName: EditText
-    private lateinit var editTextIdenfication: EditText
-    private lateinit var editTextPhone: EditText
-    private lateinit var spinnerProfession: Spinner
+    private lateinit var editTextPatientName: EditText
+    private lateinit var editTextPatientIdenfication: EditText
+    private lateinit var radioGroupPriority: RadioGroup
+    private lateinit var spinnerDisease: Spinner
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -42,31 +39,29 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.hide()
 
-        _binding = FragmentStaffEditBinding.inflate(inflater, container, false)
+        _binding = FragmentPatientEditBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editTextName = view.findViewById(R.id.editTextName)
-        editTextIdenfication = view.findViewById(R.id.editTextIdentification)
-        editTextPhone = view.findViewById(R.id.editTextPhone)
-        spinnerProfession = view.findViewById(R.id.spinnerProfession)
+        editTextPatientName = view.findViewById(R.id.editTextPatientName)
+        editTextPatientIdenfication = view.findViewById(R.id.editTextPatientIdentification)
 
-        editTextName.addTextChangedListener(confirmStaffDataWatcher)
-        editTextIdenfication.addTextChangedListener(confirmStaffDataWatcher)
-        editTextPhone.addTextChangedListener(confirmStaffDataWatcher)
+        spinnerDisease = view.findViewById(R.id.spinnerDisease)
 
-        editTextName.setText(AppData.selectedStaff!!.name)
-        editTextIdenfication.setText(AppData.selectedStaff!!.identifcation.toString())
-        editTextPhone.setText(AppData.selectedStaff!!.phone.toString())
+        editTextPatientName.addTextChangedListener(confirmPatientDataWatcher)
+        editTextPatientIdenfication.addTextChangedListener(confirmPatientDataWatcher)
+
+        editTextPatientName.setText(AppData.selectedPatient!!.name)
+        editTextPatientIdenfication.setText(AppData.selectedPatient!!.identifcation.toString())
 
         LoaderManager.getInstance(this)
-            .initLoader(ID_LOADER_MANAGER_PROFESSION, null, this)
+            .initLoader(ID_LOADER_MANAGER_DISEASE, null, this)
 
-
-        _binding?.editStaff?.setOnClickListener{
+/*
+        _binding?.editPatient?.setOnClickListener{
             editStaff()
             it.hideKeyboard()
         }
@@ -75,9 +70,10 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             navigateStaff()
             it.hideKeyboard()
         }
+ */
 
     }
-
+/*
     private fun editStaff() {
         val name = editTextName.text.toString()
         val identification = editTextIdenfication.text.toString().toLong()
@@ -119,7 +115,7 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         navigateStaff()
     }
-
+*/
     private fun navigateStaff(){
         findNavController().navigate(R.id.action_staffEditFragment_to_staffFragment)
     }
@@ -129,15 +125,14 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         _binding = null
     }
 
-    private val confirmStaffDataWatcher: TextWatcher = object : TextWatcher {
+    private val confirmPatientDataWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            val nameInput: String = editTextName.text.toString().trim()
-            val identificationInput: String = editTextIdenfication.text.toString().trim()
-            val phoneInput: String = editTextPhone.text.toString().trim()
+            val nameInput: String = editTextPatientName.text.toString().trim()
+            val identificationInput: String = editTextPatientIdenfication.text.toString().trim()
 
-            _binding?.editStaff?.isEnabled = nameInput.isNotEmpty() &&
-                    identificationInput.isNotEmpty() && phoneInput.isNotEmpty();
+            _binding?.editPatient?.isEnabled = nameInput.isNotEmpty() &&
+                    identificationInput.isNotEmpty()
         }
         override fun afterTextChanged(s: Editable) {}
     }
@@ -147,24 +142,24 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    private fun updateProfessionSpinner(data: Cursor?){
-        spinnerProfession.adapter = SimpleCursorAdapter(
+    private fun updateDiseaseSpinner(data: Cursor?){
+        spinnerDisease.adapter = SimpleCursorAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
             data,
-            arrayOf(ProfessionTable.FIELD_NAME),
+            arrayOf(DiseaseTable.FIELD_NAME),
             intArrayOf(android.R.id.text1),
             0
         )
     }
 
-    private fun updateSelectedProfession(){
-        val idProfession = AppData.selectedStaff!!.idProfession
+    private fun updateSelectedDisease(){
+        val idDisease = AppData.selectedPatient!!.idDisease
 
-        val lastProfession = spinnerProfession.count - 1
-        for(i in 0..lastProfession){
-            if (idProfession == spinnerProfession.getItemIdAtPosition(i)){
-                spinnerProfession.setSelection(i)
+        val lastDisease = spinnerDisease.count - 1
+        for(i in 0..lastDisease){
+            if (idDisease == spinnerDisease.getItemIdAtPosition(i)){
+                spinnerDisease.setSelection(i)
                 return
             }
         }
@@ -173,23 +168,23 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
-            ContentProviderCovid.ENDERECO_PROFESSION,
-            ProfessionTable.TODAS_COLUNAS,
+            ContentProviderCovid.ENDERECO_DISEASE,
+            DiseaseTable.TODAS_COLUNAS,
             null, null,
-            ProfessionTable.FIELD_NAME
+            DiseaseTable.FIELD_NAME
         )
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-        updateProfessionSpinner(data)
-        updateSelectedProfession()
+        updateDiseaseSpinner(data)
+        updateSelectedDisease()
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        updateProfessionSpinner(null)
+        updateDiseaseSpinner(null)
     }
 
     companion object{
-        const val ID_LOADER_MANAGER_PROFESSION = 0
+        const val ID_LOADER_MANAGER_DISEASE = 0
     }
 }
