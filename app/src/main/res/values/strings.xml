@@ -56,4 +56,10 @@
     <string name="priority">Priority:</string>
     <string name="disease">Disease:</string>
     <string name="select_hospital">Select an Hospital</string>
+    <string name="cancel_patient">Cancel Patient</string>
+    <string name="insert_the_new_patient_data">Insert The New Patient Data</string>
+    <string name="low">LOW</string>
+    <string name="medium">MEDIUM</string>
+    <string name="high">HIGH</string>
+    <string name="urgent">URGENT</string>
 </resources>
