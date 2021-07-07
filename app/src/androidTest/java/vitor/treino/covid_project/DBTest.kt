@@ -43,6 +43,13 @@ class DBTest {
         return id
     }
 
+    private fun insertPatient(table: PatientTable, patient: PatientData): Long{
+        val id = table.insert(patient.toContentValues())
+        assertNotEquals(-1,id)
+
+        return id
+    }
+
     private fun getHospitalDB(table: HospitalTable, id: Long): HospitalData {
         val cursor = table.query(
             HospitalTable.TODAS_COLUNAS,
@@ -97,6 +104,20 @@ class DBTest {
         assert(cursor!!.moveToNext())
 
         return DiseaseData.fromCursor(cursor)
+    }
+
+    private fun getPatientDB(table: PatientTable, id: Long): PatientData {
+        val cursor = table.query(
+            PatientTable.TODAS_COLUNAS,
+            "${PatientTable.TABLE_NAME}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return PatientData.fromCursor(cursor)
     }
 
     @After
@@ -297,6 +318,124 @@ class DBTest {
         val deletedData = staffTable.delete(
             "${BaseColumns._ID}=?",
             arrayOf(staff.id.toString())
+        )
+
+        assertEquals(1, deletedData)
+
+        db.close()
+    }
+
+    //TODO: Testes CRUD à tabela Patient
+
+    @Test
+    fun testPatientInsert() {
+        val db = getDbHelper().writableDatabase
+
+
+        val hospitalTable = HospitalTable(db)
+        val hospital = HospitalData(name = "teste",
+            location = "teste",
+            address = "teste",
+            state = "FULL",
+            infected = 123,
+            recovered = 321)
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val diseaseTable = DiseaseTable(db)
+        val disease = DiseaseData(name = "TesteD")
+        disease.id = insertDisease(diseaseTable, disease)
+
+
+        val patientTable = PatientTable(db)
+        val patient = PatientData(
+            identifcation = 11111,
+            name = "Pedro Santos",
+            priority = "LOW",
+            idHospital = hospital.id,
+            idDisease = disease.id,
+            nameDisease = disease.name)
+        patient.id = insertPatient(patientTable, patient)
+
+        assertEquals(patient, getPatientDB(patientTable, patient.id))
+
+        db.close()
+    }
+
+    @Test
+    fun testPatientUpdate() {
+        val db = getDbHelper().writableDatabase
+
+        val hospitalTable = HospitalTable(db)
+        val hospital = HospitalData(name = "Mateus",
+            location = "Porto",
+            address = "?",
+            state = "?",
+            infected = 456,
+            recovered = 654)
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val diseaseTable = DiseaseTable(db)
+        val disease = DiseaseData(name = "TesteB")
+        disease.id = insertDisease(diseaseTable, disease)
+
+
+        val patientTable = PatientTable(db)
+        val patient = PatientData(
+            identifcation = 22222,
+            name = "Andre Santos",
+            priority = "MEDIUM",
+            idHospital = hospital.id,
+            idDisease = disease.id,
+            nameDisease = disease.name)
+        patient.id = insertPatient(patientTable, patient)
+
+        patient.identifcation = 67890
+        patient.name = "André Santos"
+
+        val updatedData = patientTable.update(
+            patient.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(patient.id.toString())
+        )
+
+        assertEquals(1, updatedData)
+
+        assertEquals(patient, getPatientDB(patientTable, patient.id))
+
+        db.close()
+    }
+
+    @Test
+    fun testPatientDelete() {
+        val db = getDbHelper().writableDatabase
+
+        val hospitalTable = HospitalTable(db)
+        val hospital = HospitalData(name = "S. Antonio",
+            location = "Mafra",
+            address = "Rua Grande",
+            state = "FULL",
+            infected = 789,
+            recovered = 987)
+        hospital.id = insertHospital(hospitalTable, hospital)
+
+        val diseaseTable = DiseaseTable(db)
+        val disease = DiseaseData(name = "TesteF")
+        disease.id = insertDisease(diseaseTable, disease)
+
+
+        val patientTable = PatientTable(db)
+        val patient = PatientData(
+            identifcation = 44444,
+            name = "Mateus Santos",
+            priority = "HIGH",
+            idHospital = hospital.id,
+            idDisease = disease.id,
+            nameDisease = disease.name)
+        patient.id = insertPatient(patientTable, patient)
+
+        val deletedData = patientTable.delete(
+            "${BaseColumns._ID}=?",
+            arrayOf(patient.id.toString())
         )
 
         assertEquals(1, deletedData)
