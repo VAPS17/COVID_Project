@@ -64,4 +64,5 @@
     <string name="urgent">URGENT</string>
     <string name="pErrorI">Error saving Patient!!</string>
     <string name="pSaved">Patient Saved.</string>
+    <string name="prioritySelect">Select a Priority!!</string>
 </resources>

@@ -2,6 +2,7 @@ package vitor.treino.covid_project
 
 import android.content.Context
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -58,12 +59,45 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         binding.addPatient.setOnClickListener {
             saveStaff()
+            updateHospital()
+            navigatePatient()
             it.hideKeyboard()
         }
 
         binding.cancelPatient.setOnClickListener {
             navigatePatient()
             it.hideKeyboard()
+        }
+    }
+
+    private fun updateHospital() {
+        val disease = spinnerDisease.selectedItemId.toString().toInt()
+        if (disease == 1){
+            val infected = AppData.selectedHospital!!.infected
+            val hospital = AppData.selectedHospital!!
+
+            hospital.infected = infected + 1
+
+            val uriHospital = Uri.withAppendedPath(
+                ContentProviderCovid.ENDERECO_HOSPITAL,
+                hospital.id.toString()
+            )
+
+            val register = activity?.contentResolver?.update(
+                uriHospital,
+                hospital.toContentValues(),
+                null,
+                null
+            )
+
+            if (register != -1) {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.hErrorE,
+                    Toast.LENGTH_LONG
+                ).show()
+                return
+            }
         }
     }
 
@@ -95,34 +129,41 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val id = radioGroupPriority.checkedRadioButtonId
         val radio = view?.findViewById<RadioButton>(id)?.text
 
+        if (id != -1){
+            val patient = PatientData(name = name,
+                identifcation = identification,
+                priority = radio as String,
+                idHospital = hospitalID,
+                idDisease = diseaseId
+            )
 
-        val patient = PatientData(name = name,
-            identifcation = identification,
-            priority = radio as String,
-            idHospital = hospitalID,
-            idDisease = diseaseId
-        )
+            val uri = activity?.contentResolver?.insert(
+                ContentProviderCovid.ENDERECO_PATIENT,
+                patient.toContentValues()
+            )
 
-        val uri = activity?.contentResolver?.insert(
-            ContentProviderCovid.ENDERECO_PATIENT,
-            patient.toContentValues()
-        )
-
-        if (uri == null) {
-            Snackbar.make(
-                editTextPatientName,
-                getString(R.string.pErrorI),
-                Snackbar.LENGTH_LONG
+            if (uri == null) {
+                Snackbar.make(
+                    editTextPatientName,
+                    R.string.pErrorI,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                return
+            }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                R.string.prioritySelect,
+                Toast.LENGTH_LONG
             ).show()
             return
         }
 
         Toast.makeText(
             requireContext(),
-            getString(R.string.pSaved),
+            R.string.pSaved,
             Toast.LENGTH_LONG
         ).show()
-        navigatePatient()
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
