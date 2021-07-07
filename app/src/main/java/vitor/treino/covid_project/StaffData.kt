@@ -4,13 +4,14 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
 
-data class StaffData(var id: Long = -1,
-                     var identifcation: Long,
-                     var phone: Long,
-                     var name: String,
-                     var idHospital: Long,
-                     var idProfession: Long,
-                     var nameProfession: String? = null) {
+data class StaffData(
+    var id: Long = -1,
+    var identifcation: Long,
+    var phone: Long,
+    var name: String,
+    var idHospital: Long?,
+    var idProfession: Long,
+    var nameProfession: String? = null) {
     fun toContentValues(): ContentValues {
 
         return ContentValues().apply {

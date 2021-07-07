@@ -185,7 +185,8 @@ class DBTest {
 
 
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 11111,
+        val staff = StaffData(
+            identifcation = 11111,
             phone = 961111111,
             name = "Pedro",
             idHospital = hospital.id,
@@ -217,7 +218,8 @@ class DBTest {
 
 
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 12,
+        val staff = StaffData(
+            identifcation = 12,
             phone = 967777777,
             name = "?",
             idHospital = hospital.id,
@@ -261,7 +263,8 @@ class DBTest {
 
 
         val staffTable = StaffTable(db)
-        val staff = StaffData(identifcation = 13579,
+        val staff = StaffData(
+            identifcation = 13579,
             phone = 968888888,
             name = "Carlos",
             idHospital = hospital.id,

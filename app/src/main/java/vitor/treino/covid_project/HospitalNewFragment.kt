@@ -70,7 +70,12 @@ class HospitalNewFragment : Fragment() {
         val location = editTextLocation.text.toString()
         val address = editTextAddress.text.toString()
 
-        val hospital = HospitalData(name = name, location = location, address = address, state = "", infected = 0, recovered = 0)
+        val hospital = HospitalData(name = name,
+            location = location,
+            address = address,
+            state = "",
+            infected = 0,
+            recovered = 0)
 
         val uri = activity?.contentResolver?.insert(
             ContentProviderCovid.ENDERECO_HOSPITAL,

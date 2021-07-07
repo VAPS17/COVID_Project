@@ -36,4 +36,6 @@
     <string name="profession">Profession:</string>
     <string name="insert_the_new_staff_data">Insert The New Staff Data</string>
     <string name="staff_name">Name:</string>
+    <string name="sErrorI">Error on saving staff!!</string>
+    <string name="sSaved">Staff Saved</string>
 </resources>
