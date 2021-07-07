@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             else -> when (currentMenu){
                 R.menu.menu_hospital -> (AppData.fragment as HospitalFragment).optionMenuProcessingH(item)
                 R.menu.menu_staff -> (AppData.fragment as StaffFragment).optionMenuProcessingS(item)
+                R.menu.menu_patient -> (AppData.fragment as PatientFragment).optionMenuProcessingP(item)
                 else -> false
             }
         }

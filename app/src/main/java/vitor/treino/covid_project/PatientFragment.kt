@@ -32,7 +32,7 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         AppData.fragment = this
         (activity as MainActivity).supportActionBar?.show()
-        //(activity as MainActivity).currentMenu = R.menu.menu_staff
+        (activity as MainActivity).currentMenu = R.menu.menu_patient
 
         _binding = FragmentPatientBinding.inflate(inflater, container, false)
         return binding.root
@@ -137,8 +137,8 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onLoaderReset(loader: Loader<Cursor>) {
         adapterPatient!!.cursor = null
     }
-/*
-    fun optionMenuProcessingS(item: MenuItem): Boolean {
+
+    fun optionMenuProcessingP(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_hospital -> navigateHospital()
             else -> return false
@@ -147,14 +147,14 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun navigateHospital(){
-        findNavController().navigate(R.id.action_staffFragment_to_hospitalFragment)
+        findNavController().navigate(R.id.action_patientFragment_to_hospitalFragment)
     }
-
-    private fun reloadStaff() {
-        findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
-        findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
-    }
-*/
+    /*
+        private fun reloadStaff() {
+            findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
+            findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
+        }
+    */
     companion object {
         const val ID_LOADER_MANAGER_PATIENT = 0
     }
