@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_patientFragment_to_patientNewFragment"
             app:destination="@id/patientNewFragment" />
+        <action
+            android:id="@+id/action_patientFragment_to_patientEditFragment"
+            app:destination="@id/patientEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientNewFragment"
@@ -89,6 +92,14 @@
         tools:layout="@layout/fragment_patient_new">
         <action
             android:id="@+id/action_patientNewFragment_to_patientFragment"
+            app:destination="@id/patientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientEditFragment"
+        android:name="vitor.treino.covid_project.PatientEditFragment"
+        tools:layout="@layout/fragment_patient_edit" >
+        <action
+            android:id="@+id/action_patientEditFragment_to_patientFragment"
             app:destination="@id/patientFragment" />
     </fragment>
 </navigation>
