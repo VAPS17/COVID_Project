@@ -29,7 +29,7 @@ class StaffEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentStaffEditBinding? = null
 
     private lateinit var editTextName: EditText
-    private lateinit var editTextIdenfication: EditText
+    private lateinit var editTextIdentification: EditText
     private lateinit var editTextPhone: EditText
     private lateinit var spinnerProfession: Spinner
     private val binding get() = _binding!!
@@ -50,16 +50,16 @@ class StaffEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         super.onViewCreated(view, savedInstanceState)
 
         editTextName = view.findViewById(R.id.editTextName)
-        editTextIdenfication = view.findViewById(R.id.editTextIdentification)
+        editTextIdentification = view.findViewById(R.id.editTextIdentification)
         editTextPhone = view.findViewById(R.id.editTextPhone)
         spinnerProfession = view.findViewById(R.id.spinnerProfession)
 
         editTextName.addTextChangedListener(confirmStaffDataWatcher)
-        editTextIdenfication.addTextChangedListener(confirmStaffDataWatcher)
+        editTextIdentification.addTextChangedListener(confirmStaffDataWatcher)
         editTextPhone.addTextChangedListener(confirmStaffDataWatcher)
 
         editTextName.setText(AppData.selectedStaff!!.name)
-        editTextIdenfication.setText(AppData.selectedStaff!!.identifcation.toString())
+        editTextIdentification.setText(AppData.selectedStaff!!.identifcation.toString())
         editTextPhone.setText(AppData.selectedStaff!!.phone.toString())
 
         LoaderManager.getInstance(this)
@@ -80,7 +80,7 @@ class StaffEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     private fun editStaff() {
         val name = editTextName.text.toString()
-        val identification = editTextIdenfication.text.toString().toLong()
+        val identification = editTextIdentification.text.toString().toLong()
         val phone = editTextPhone.text.toString().toLong()
         val idProfession = spinnerProfession.selectedItemId
         val staff = AppData.selectedStaff!!
@@ -133,7 +133,7 @@ class StaffEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             val nameInput: String = editTextName.text.toString().trim()
-            val identificationInput: String = editTextIdenfication.text.toString().trim()
+            val identificationInput: String = editTextIdentification.text.toString().trim()
             val phoneInput: String = editTextPhone.text.toString().trim()
 
             _binding?.editStaff?.isEnabled = nameInput.isNotEmpty() &&

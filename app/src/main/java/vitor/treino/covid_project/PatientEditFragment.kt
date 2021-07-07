@@ -26,9 +26,10 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentPatientEditBinding? = null
 
     private lateinit var editTextPatientName: EditText
-    private lateinit var editTextPatientIdenfication: EditText
+    private lateinit var editTextPatientIdentification: EditText
     private lateinit var radioGroupPriority: RadioGroup
     private lateinit var spinnerDisease: Spinner
+    private var oldDisease : Long? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -47,77 +48,34 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         super.onViewCreated(view, savedInstanceState)
 
         editTextPatientName = view.findViewById(R.id.editTextPatientName)
-        editTextPatientIdenfication = view.findViewById(R.id.editTextPatientIdentification)
-
+        editTextPatientIdentification = view.findViewById(R.id.editTextPatientIdentification)
+        radioGroupPriority = view.findViewById(R.id.radioGroupPriority)
         spinnerDisease = view.findViewById(R.id.spinnerDisease)
 
+        oldDisease = AppData.selectedPatient!!.idDisease
+
         editTextPatientName.addTextChangedListener(confirmPatientDataWatcher)
-        editTextPatientIdenfication.addTextChangedListener(confirmPatientDataWatcher)
+        editTextPatientIdentification.addTextChangedListener(confirmPatientDataWatcher)
 
         editTextPatientName.setText(AppData.selectedPatient!!.name)
-        editTextPatientIdenfication.setText(AppData.selectedPatient!!.identifcation.toString())
+        editTextPatientIdentification.setText(AppData.selectedPatient!!.identifcation.toString())
 
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_DISEASE, null, this)
 
-/*
         _binding?.editPatient?.setOnClickListener{
-            editStaff()
+            editPatient()
             it.hideKeyboard()
         }
 
-        _binding?.cancelStaff?.setOnClickListener {
-            navigateStaff()
+        _binding?.cancelPatient?.setOnClickListener {
+            navigatePatient()
             it.hideKeyboard()
         }
- */
-
     }
-/*
-    private fun editStaff() {
-        val name = editTextName.text.toString()
-        val identification = editTextIdenfication.text.toString().toLong()
-        val phone = editTextPhone.text.toString().toLong()
-        val idProfession = spinnerProfession.selectedItemId
-        val staff = AppData.selectedStaff!!
 
-        staff.name = name
-        staff.identifcation = identification
-        staff.phone = phone
-        staff.idProfession = idProfession
-
-        val uriStaff = Uri.withAppendedPath(
-            ContentProviderCovid.ENDERECO_STAFF,
-            staff.id.toString()
-        )
-
-        val register = activity?.contentResolver?.update(
-            uriStaff,
-            staff.toContentValues(),
-            null,
-            null
-        )
-
-        if (register != 1) {
-            Toast.makeText(
-                requireContext(),
-                R.string.sErrorE,
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
-
-        Toast.makeText(
-            requireContext(),
-            R.string.sEdited,
-            Toast.LENGTH_LONG
-        ).show()
-
-        navigateStaff()
-    }
-*/
-    private fun navigateStaff(){
-        findNavController().navigate(R.id.action_staffEditFragment_to_staffFragment)
+    private fun navigatePatient(){
+        findNavController().navigate(R.id.action_patientEditFragment_to_patientFragment)
     }
 
     override fun onDestroyView() {
@@ -129,7 +87,7 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             val nameInput: String = editTextPatientName.text.toString().trim()
-            val identificationInput: String = editTextPatientIdenfication.text.toString().trim()
+            val identificationInput: String = editTextPatientIdentification.text.toString().trim()
 
             _binding?.editPatient?.isEnabled = nameInput.isNotEmpty() &&
                     identificationInput.isNotEmpty()
@@ -140,6 +98,106 @@ class PatientEditFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    private fun editPatient() {
+        val name = editTextPatientName.text.toString()
+        val identification = editTextPatientIdentification.text.toString().toLong()
+        val idDisease = spinnerDisease.selectedItemId
+        val patient = AppData.selectedPatient!!
+
+        val id = radioGroupPriority.checkedRadioButtonId
+        val radio = view?.findViewById<RadioButton>(id)?.text
+
+        if (id == -1){
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.prioritySelect),
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        patient.name = name
+        patient.identifcation = identification
+        patient.priority = radio as String
+        patient.idDisease = idDisease
+
+        val uriPatient = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_PATIENT,
+            patient.id.toString()
+        )
+
+        val register = activity?.contentResolver?.update(
+            uriPatient,
+            patient.toContentValues(),
+            null,
+            null
+        )
+
+        if (register != 1) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.pErrorE),
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.pEdit),
+            Toast.LENGTH_LONG
+        ).show()
+        updateHospital()
+        navigatePatient()
+    }
+
+    private fun updateHospital() {
+        val infected = AppData.selectedHospital!!.infected
+        val hospital = AppData.selectedHospital!!
+        val newDisease = spinnerDisease.selectedItemId.toString().toInt()
+
+        if (oldDisease.toString().toInt() == 1 && newDisease != 1){
+            hospital.infected = infected - 1
+        }
+
+        if (oldDisease.toString().toInt() != 1 && newDisease == 1) {
+            hospital.infected = infected + 1
+        }
+
+        if (infected.toString().toInt() in 0..2){
+            hospital.state = "We Have Beds."
+        }
+
+        if (infected.toString().toInt() in 2..4){
+            hospital.state = "Almost FuLL."
+        }
+
+        if (infected.toString().toInt() in 4..5){
+            hospital.state = "Sorry, We are Full."
+        }
+
+        val uriHospital = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_HOSPITAL,
+            hospital.id.toString()
+        )
+
+        val register = activity?.contentResolver?.update(
+            uriHospital,
+            hospital.toContentValues(),
+            null,
+            null
+        )
+
+        if (register != 1) {
+            Toast.makeText(
+                requireContext(),
+                R.string.hErrorE,
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
     }
 
     private fun updateDiseaseSpinner(data: Cursor?){

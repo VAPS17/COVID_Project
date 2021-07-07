@@ -69,4 +69,6 @@
     <string name="pDeleted">Patient Deleted.</string>
     <string name="lost">Lost</string>
     <string name="edit_patient_data">Edit Patient Data</string>
+    <string name="pErrorE">Error Editing Patient!!</string>
+    <string name="pEdit">Patient Edit.</string>
 </resources>

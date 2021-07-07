@@ -61,8 +61,6 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         binding.addPatient.setOnClickListener {
             savePatient()
-            updateHospital()
-            navigatePatient()
             it.hideKeyboard()
         }
 
@@ -174,6 +172,9 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             R.string.pSaved,
             Toast.LENGTH_LONG
         ).show()
+
+        updateHospital()
+        navigatePatient()
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
