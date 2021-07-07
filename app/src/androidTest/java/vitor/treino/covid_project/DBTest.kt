@@ -36,6 +36,13 @@ class DBTest {
         return id
     }
 
+    private fun insertDisease(table: DiseaseTable, disease: DiseaseData): Long{
+        val id = table.insert(disease.toContentValues())
+        assertNotEquals(-1,id)
+
+        return id
+    }
+
     private fun getHospitalDB(table: HospitalTable, id: Long): HospitalData {
         val cursor = table.query(
             HospitalTable.TODAS_COLUNAS,
@@ -76,6 +83,20 @@ class DBTest {
         assert(cursor!!.moveToNext())
 
         return StaffData.fromCursor(cursor)
+    }
+
+    private fun getDiseaseDB(table: DiseaseTable, id: Long): DiseaseData {
+        val cursor = table.query(
+            DiseaseTable.TODAS_COLUNAS,
+            "${DiseaseTable.TABLE_NAME}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return DiseaseData.fromCursor(cursor)
     }
 
     @After
@@ -306,6 +327,33 @@ class DBTest {
         assertEquals(profession2, getProfessionDB(professionTable, profession2.id))
         assertEquals(profession3, getProfessionDB(professionTable, profession3.id))
         assertEquals(profession4, getProfessionDB(professionTable, profession4.id))
+
+        db.close()
+    }
+
+    //TODO: Preencher a tabela "disease"
+
+    @Test
+    fun testDiseaseInsert() {
+        val db = getDbHelper().writableDatabase
+        val diseaseTable = DiseaseTable(db)
+
+        val disease1 = DiseaseData(name = "COVID-19")
+        disease1.id = insertDisease(diseaseTable, disease1)
+/*
+        val profession2 = ProfessionData(name = "Doctor")
+        profession2.id = insertProfession(professionTable, profession2)
+
+        val profession3 = ProfessionData(name = "Nurse")
+        profession3.id = insertProfession(professionTable, profession3)
+
+        val profession4 = ProfessionData(name = "Employee")
+        profession4.id = insertProfession(professionTable, profession4)
+*/
+        assertEquals(disease1, getDiseaseDB(diseaseTable, disease1.id))
+//        assertEquals(profession2, getProfessionDB(professionTable, profession2.id))
+//        assertEquals(profession3, getProfessionDB(professionTable, profession3.id))
+//        assertEquals(profession4, getProfessionDB(professionTable, profession4.id))
 
         db.close()
     }

@@ -80,6 +80,24 @@ class ContentProviderCovid: ContentProvider() {
                 null
             )
 
+            URI_DISEASE -> DiseaseTable(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+
+            URI_DISEASE_SPECIFIC -> DiseaseTable(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+
             else -> null
         }
     }
@@ -92,6 +110,8 @@ class ContentProviderCovid: ContentProvider() {
             URI_PROFESSION_SPECIFIC -> "$UNICO_ITEM/$PROFESSION"
             URI_STAFF -> "$MULTIPLOS_ITEMS/$STAFF"
             URI_STAFF_SPECIFIC -> "$UNICO_ITEM/$STAFF"
+            URI_DISEASE -> "$MULTIPLOS_ITEMS/$DISEASE"
+            URI_DISEASE_SPECIFIC -> "$UNICO_ITEM/$DISEASE"
             else -> null
         }
     }
@@ -103,6 +123,7 @@ class ContentProviderCovid: ContentProvider() {
             URI_HOSPITAL -> HospitalTable(bd).insert(values!!)
             URI_PROFESSION -> ProfessionTable(bd).insert(values!!)
             URI_STAFF -> StaffTable(bd).insert(values!!)
+            URI_DISEASE -> DiseaseTable(bd).insert(values!!)
             else -> -1L
         }
 
@@ -126,6 +147,11 @@ class ContentProviderCovid: ContentProvider() {
             )
 
             URI_STAFF_SPECIFIC -> StaffTable(bd).delete(
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_DISEASE_SPECIFIC -> DiseaseTable(bd).delete(
                 "${BaseColumns._ID}=?",
                 arrayOf(uri.lastPathSegment!!)
             )
@@ -161,6 +187,12 @@ class ContentProviderCovid: ContentProvider() {
                 arrayOf(uri.lastPathSegment!!)
             )
 
+            URI_DISEASE_SPECIFIC -> DiseaseTable(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
             else -> 0
         }
     }
@@ -174,6 +206,8 @@ class ContentProviderCovid: ContentProvider() {
         uriMatcher.addURI(AUTHORITY, "$PROFESSION/#", URI_PROFESSION_SPECIFIC)
         uriMatcher.addURI(AUTHORITY, STAFF, URI_STAFF)
         uriMatcher.addURI(AUTHORITY, "$STAFF/#", URI_STAFF_SPECIFIC)
+        uriMatcher.addURI(AUTHORITY, DISEASE, URI_DISEASE)
+        uriMatcher.addURI(AUTHORITY, "$DISEASE/#", URI_DISEASE_SPECIFIC)
 
         return uriMatcher
     }
@@ -182,8 +216,9 @@ class ContentProviderCovid: ContentProvider() {
         private const val AUTHORITY = "vitor.treino.covid_project"
 
         private const val HOSPITAL = "hospital"
-        private const val PROFESSION = "profession"
         private const val STAFF = "staff"
+        private const val PROFESSION = "profession"
+        private const val DISEASE = "disease"
 
         private const val URI_HOSPITAL = 100
         private const val URI_HOSPITAL_SPECIFIC = 101
@@ -191,14 +226,17 @@ class ContentProviderCovid: ContentProvider() {
         private const val URI_PROFESSION_SPECIFIC = 201
         private const val URI_STAFF = 300
         private const val URI_STAFF_SPECIFIC = 301
+        private const val URI_DISEASE = 400
+        private const val URI_DISEASE_SPECIFIC = 401
 
         private const val MULTIPLOS_ITEMS = "vnd.android.cursor.dir"
         private const val UNICO_ITEM = "vnd.android.cursor.item"
 
         private val ENDERECO_BASE = Uri.parse("content://$AUTHORITY")
-        public val ENDERECO_HOSPITAL = Uri.withAppendedPath(ENDERECO_BASE, HOSPITAL)
-        public val ENDERECO_PROFESSION = Uri.withAppendedPath(ENDERECO_BASE, PROFESSION)
-        public val ENDERECO_STAFF = Uri.withAppendedPath(ENDERECO_BASE, STAFF)
+        val ENDERECO_HOSPITAL = Uri.withAppendedPath(ENDERECO_BASE, HOSPITAL)
+        val ENDERECO_PROFESSION = Uri.withAppendedPath(ENDERECO_BASE, PROFESSION)
+        val ENDERECO_STAFF = Uri.withAppendedPath(ENDERECO_BASE, STAFF)
+        val ENDERECO_DISEASE = Uri.withAppendedPath(ENDERECO_BASE, DISEASE)
 
     }
 }
