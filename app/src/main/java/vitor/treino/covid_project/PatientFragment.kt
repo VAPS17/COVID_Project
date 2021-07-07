@@ -22,6 +22,7 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private var _binding: FragmentPatientBinding? = null
     private var adapterPatient : AdapterPatient? = null
     private var hospitalID : Long? = null
+    private var recoveredFlag: Boolean = false
 
     private val binding get() = _binding!!
 
@@ -59,42 +60,77 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             findNavController().navigate(R.id.action_staffFragment_to_staffEditFragment)
         }
 
-        binding.deleteStaff.setOnClickListener {
-            val staff = AppData.selectedStaff!!
+*/
+        binding.deletePatient.setOnClickListener {
+            val patient = AppData.selectedPatient!!
             val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Delete Staff")
-                .setMessage("Name: " + staff.name +
-                        "\nIdentification: " + staff.identifcation +
-                        "\nPhone: " + staff.phone +
-                        "\nProfession: " + staff.nameProfession
+            builder.setTitle("Delete Patient")
+                .setMessage("Name: " + patient.name +
+                        "\nIdentification: " + patient.identifcation +
+                        "\nPriority: " + patient.priority +
+                        "\nDisease: " + patient.nameDisease
                 )
                 .setCancelable(false)
-                .setPositiveButton(R.string.yes) { _, _ ->
-                    deleteStaff()
+                .setPositiveButton("recovered") { _, _ ->
+                    recoveredFlag = true
+                    deletePatient()
+                    updateHospital()
                 }
-                .setNegativeButton(R.string.no) { dialog, _ ->
+                .setNeutralButton(R.string.no) { dialog, _ ->
                     dialog.dismiss()
+                }
+                .setNegativeButton(R.string.lost) { _, _ ->
+                    recoveredFlag = false
+                    deletePatient()
+                    updateHospital()
                 }
             val alert = builder.create()
             alert.show()
         }
-
- */
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-/*
-    private fun deleteStaff(){
-        val uriStaff = Uri.withAppendedPath(
-            ContentProviderCovid.ENDERECO_STAFF,
-            AppData.selectedStaff!!.id.toString()
+
+    private fun updateHospital() {
+        val diseaseName = AppData.selectedPatient!!.nameDisease
+        val infected = AppData.selectedHospital!!.infected
+        val recovered = AppData.selectedHospital!!.recovered
+        val hospital = AppData.selectedHospital!!
+
+        if (diseaseName == "COVID-19"){
+
+            if (recoveredFlag){
+                hospital.infected = infected - 1
+                hospital.recovered = recovered + 1
+            } else {
+                hospital.infected = infected - 1
+            }
+
+            val uriHospital = Uri.withAppendedPath(
+                ContentProviderCovid.ENDERECO_HOSPITAL,
+                hospital.id.toString()
+            )
+
+            activity?.contentResolver?.update(
+                uriHospital,
+                hospital.toContentValues(),
+                null,
+                null
+            )
+        }
+    }
+
+    private fun deletePatient(){
+        val uriPatient = Uri.withAppendedPath(
+            ContentProviderCovid.ENDERECO_PATIENT,
+            AppData.selectedPatient!!.id.toString()
         )
 
         val register = activity?.contentResolver?.delete(
-            uriStaff,
+            uriPatient,
             null,
             null
         )
@@ -102,7 +138,7 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         if (register != 1) {
             Toast.makeText(
                 requireContext(),
-                R.string.sErrorD,
+                R.string.pErrorD,
                 Toast.LENGTH_LONG
             ).show()
             return
@@ -110,13 +146,12 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         Toast.makeText(
             requireContext(),
-            R.string.sDeleted,
+            getString(R.string.pDeleted),
             Toast.LENGTH_LONG
         ).show()
 
-        reloadStaff()
+        reloadPatient()
     }
-*/
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
@@ -148,12 +183,12 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     private fun navigateHospital(){
         findNavController().navigate(R.id.action_patientFragment_to_hospitalFragment)
     }
-    /*
-        private fun reloadStaff() {
-            findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
-            findNavController().navigate(R.id.action_staffNewFragment_to_staffFragment)
-        }
-    */
+
+    private fun reloadPatient() {
+        findNavController().navigate(R.id.action_patientFragment_to_patientNewFragment)
+        findNavController().navigate(R.id.action_patientNewFragment_to_patientFragment)
+    }
+
     companion object {
         const val ID_LOADER_MANAGER_PATIENT = 0
     }

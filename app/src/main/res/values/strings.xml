@@ -65,4 +65,7 @@
     <string name="pErrorI">Error saving Patient!!</string>
     <string name="pSaved">Patient Saved.</string>
     <string name="prioritySelect">Select a Priority!!</string>
+    <string name="pErrorD">Error to delete Patient!!</string>
+    <string name="pDeleted">Patient Deleted.</string>
+    <string name="lost">Lost</string>
 </resources>
