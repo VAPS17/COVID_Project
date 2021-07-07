@@ -109,6 +109,14 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
                 hospital.infected = infected - 1
             }
 
+            if (infected.toString().toInt() > 2 && infected.toString().toInt() <= 4){
+                hospital.state = "Almost Full."
+            }
+
+            if (infected.toString().toInt() <= 2){
+                hospital.state = "We Have Beds.."
+            }
+
             val uriHospital = Uri.withAppendedPath(
                 ContentProviderCovid.ENDERECO_HOSPITAL,
                 hospital.id.toString()

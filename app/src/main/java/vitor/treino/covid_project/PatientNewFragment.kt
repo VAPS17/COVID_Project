@@ -5,12 +5,14 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.view.get
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
@@ -58,7 +60,7 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             .initLoader(ID_LOADER_MANAGER_DISEASE, null, this)
 
         binding.addPatient.setOnClickListener {
-            saveStaff()
+            savePatient()
             updateHospital()
             navigatePatient()
             it.hideKeyboard()
@@ -77,6 +79,14 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             val hospital = AppData.selectedHospital!!
 
             hospital.infected = infected + 1
+
+            if (infected.toString().toInt() == 2){
+                hospital.state = "Almost Full."
+            }
+
+            if (infected.toString().toInt() == 4){
+                hospital.state = "Sorry, We are Full."
+            }
 
             val uriHospital = Uri.withAppendedPath(
                 ContentProviderCovid.ENDERECO_HOSPITAL,
@@ -121,7 +131,7 @@ class PatientNewFragment: Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         )
     }
 
-    private fun saveStaff(){
+    private fun savePatient(){
         val name = editTextPatientName.text.toString()
         val identification = editTextPatientIdentification.text.toString().toLong()
         val diseaseId = spinnerDisease.selectedItemId
