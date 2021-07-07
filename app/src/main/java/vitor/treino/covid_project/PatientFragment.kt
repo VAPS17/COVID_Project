@@ -51,11 +51,10 @@ class PatientFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_PATIENT, null, this)
 
-/*
-        binding.newStaff.setOnClickListener {
-            findNavController().navigate(R.id.action_staffFragment_to_staffNewFragment)
+        binding.newPatient.setOnClickListener {
+            findNavController().navigate(R.id.action_patientFragment_to_patientNewFragment)
         }
-
+/*
         binding.editStaff.setOnClickListener{
             findNavController().navigate(R.id.action_staffFragment_to_staffEditFragment)
         }

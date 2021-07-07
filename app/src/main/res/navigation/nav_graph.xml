@@ -79,5 +79,16 @@
         <action
             android:id="@+id/action_patientFragment_to_hospitalFragment"
             app:destination="@id/hospitalFragment" />
+        <action
+            android:id="@+id/action_patientFragment_to_patientNewFragment"
+            app:destination="@id/patientNewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientNewFragment"
+        android:name="vitor.treino.covid_project.PatientNewFragment"
+        tools:layout="@layout/fragment_patient_new">
+        <action
+            android:id="@+id/action_patientNewFragment_to_patientFragment"
+            app:destination="@id/patientFragment" />
     </fragment>
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StaffNewFragment">
+    tools:context=".PatientNewFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginBottom="290dp"
+        android:layout_marginBottom="270dp"
         android:contentDescription="@string/cancel_patient"
         android:src="@android:drawable/ic_delete"
         app:backgroundTint="@color/red"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="290dp"
+        android:layout_marginBottom="270dp"
         android:contentDescription="@string/add_new_patient"
         android:enabled="false"
         android:src="@android:drawable/ic_menu_save"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="390dp"
+        android:layout_marginBottom="370dp"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 
